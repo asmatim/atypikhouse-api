@@ -75,6 +75,7 @@
         }
     },
     "require-dev": {
-        "laravel/homestead": "^12.7"
+        "laravel/homestead": "^12.7",
+        "symfony/maker-bundle": "^1.34"
     }
 }
