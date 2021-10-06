@@ -108,6 +108,9 @@
     "laravel/homestead": {
         "version": "v12.7.0"
     },
+    "myclabs/php-enum": {
+        "version": "1.8.3"
+    },
     "nelmio/cors-bundle": {
         "version": "1.5",
         "recipe": {
