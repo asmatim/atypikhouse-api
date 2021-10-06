@@ -14,8 +14,8 @@ sites:
         map: atypikhouse.local
         to: /home/vagrant/atypikhouse-api/public
         type: symfony4
-databases:
-    - homestead
+#databases:
+#    - homestead
 features:
     -
         mysql: true
