@@ -7,7 +7,7 @@ authorize: ~/.ssh/id_rsa.pub
 #    - ~/.ssh/id_rsa
 folders:
     -
-        map: ~/projects/atypikhouse-api        
+        map: ~/projects/atypikhouse-api
         to: /home/vagrant/atypikhouse-api
 sites:
     -
