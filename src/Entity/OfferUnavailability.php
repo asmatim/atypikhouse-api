@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OfferUnavailabilityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OfferUnavailabilityRepository::class)
@@ -17,12 +18,14 @@ class OfferUnavailability
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"offerUnavailability:read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="offerUnavailabilities")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"offerUnavailability:read","offerUnavailability:write"})
      */
     private $offer;
 

@@ -5,32 +5,40 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\SocialMediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SocialMediaRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['socialMedia:read']],
+    denormalizationContext: ['groups' => ['socialMedia:write']],
+)]
 class SocialMedia
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"socialMedia:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"socialMedia:read","socialMedia:write"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"socialMedia:read","socialMedia:write"})
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"socialMedia:read","socialMedia:write"})
      */
     private $imageUrl;
 

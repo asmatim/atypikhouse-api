@@ -6,59 +6,72 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Enum\ReservationStatus;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['reservation:read']],
+    denormalizationContext: ['groups' => ['reservation:write']],
+)]
 class Reservation
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"reservation:read"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $offer;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $unitPrice;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @Groups({"reservation:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"reservation:read"})
      */
     private $lastModified;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $client;
 
     /**
      * @ORM\Column(type=ReservationStatus::class, length=255, nullable=true)
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $status;
 

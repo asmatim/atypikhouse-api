@@ -5,34 +5,42 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OfferCommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OfferCommentRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['offerComment:read']],
+    denormalizationContext: ['groups' => ['offerComment:write']],
+)]
 class OfferComment
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"offerComment:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"offerComment:read","offerComment:write"})
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="offerComments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"offerComment:read","offerComment:write"})
      */
     private $offer;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"offerComment:read","offerComment:write"})
      */
     private $client;
 

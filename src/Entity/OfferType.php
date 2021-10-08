@@ -7,22 +7,28 @@ use App\Repository\OfferTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OfferTypeRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['offerType:read']],
+    denormalizationContext: ['groups' => ['offerType:write']],
+)]
 class OfferType
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"offerType:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"offerType:read","offerType:write"})
      */
     private $name;
 
@@ -33,6 +39,7 @@ class OfferType
 
     /**
      * @ORM\OneToMany(targetEntity=DynamicProperty::class, mappedBy="offerType")
+     * @Groups({"offerType:read"})
      */
     private $dynamicProperties;
 

@@ -6,38 +6,47 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Enum\DynamicPropertyType;
 use App\Repository\DynamicPropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DynamicPropertyRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['dynamicProperty:read']],
+    denormalizationContext: ['groups' => ['dynamicProperty:write']],
+)]
 class DynamicProperty
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"dynamicProperty:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"dynamicProperty:read","dynamicProperty:write"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"dynamicProperty:read","dynamicProperty:write"})
      */
     private $isMandatory;
 
     /**
      * @ORM\Column(type=DynamicPropertyType::class, length=50)
+     * @Groups({"dynamicProperty:read","dynamicProperty:write"})
      */
     private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity=OfferType::class, inversedBy="dynamicProperties")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"dynamicProperty:read","dynamicProperty:write"})
      */
     private $offerType;
 

@@ -5,34 +5,49 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AddressRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['address:read']],
+    denormalizationContext: ['groups' => ['address:write']],
+)]
 class Address
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"address:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address:read","address:write"})
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"address:read","address:write"})
      */
     private $longitude;
 
     /**
      * @ORM\OneToOne(targetEntity=Offer::class, mappedBy="address", cascade={"persist", "remove"})
+     * @Groups({"address:read","address:write"})
      */
     private $offer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=City::class)
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"address:read","address:write"})
+     */
+    private $city;
 
     public function getId(): ?int
     {
@@ -81,6 +96,18 @@ class Address
         }
 
         $this->offer = $offer;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

@@ -5,38 +5,47 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=MediaRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['media:read']],
+    denormalizationContext: ['groups' => ['media:write']],
+)]
 class Media
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"media:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"media:read","media:write"})
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"media:read","media:write"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"media:read","media:write"})
      */
     private $alt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="media")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"media:read","media:write"})
      */
     private $offer;
 

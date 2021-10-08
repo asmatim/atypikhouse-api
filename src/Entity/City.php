@@ -5,28 +5,35 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CityRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['city:read']],
+    denormalizationContext: ['groups' => ['city:write']],
+)]
 class City
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"city:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"city:read","city:write"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="cities")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"city:read","city:write"})
      */
     private $region;
 

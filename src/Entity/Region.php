@@ -2,36 +2,46 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RegionRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['region:read']],
+    denormalizationContext: ['groups' => ['region:write']],
+)]
 class Region
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"region:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"region:read","region:write"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="regions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"region:read","region:write"})
      */
     private $country;
 
     /**
      * @ORM\OneToMany(targetEntity=City::class, mappedBy="region", orphanRemoval=true)
+     * @Groups({"region:read"})
      */
     private $cities;
 

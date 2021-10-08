@@ -7,67 +7,82 @@ use App\Repository\OfferRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['offer:read']],
+    denormalizationContext: ['groups' => ['offer:write']],
+)]
 class Offer
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"offer:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=120)
+     * @Groups({"offer:read","offer:write"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"offer:read","offer:write"})
      */
     private $summary;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"offer:read","offer:write"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"offer:read","offer:write"})
      */
     private $capacity;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"offer:read","offer:write"})
      */
     private $nbBeds;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"offer:read","offer:write"})
      */
     private $unitPrice;
 
     /**
      * @ORM\OneToMany(targetEntity=OfferUnavailability::class, mappedBy="offer", orphanRemoval=true)
+     * @Groups({"offer:read"})
      */
     private $offerUnavailabilities;
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="offer", orphanRemoval=true)
+     * @Groups({"offer:read"})
      */
     private $media;
 
     /**
      * @ORM\OneToMany(targetEntity=Highlight::class, mappedBy="offer", orphanRemoval=true)
+     * @Groups({"offer:read"})
      */
     private $highlights;
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="offer", cascade={"persist", "remove"})
+     * @Groups({"offer:read"})
      */
     private $address;
 
@@ -78,28 +93,33 @@ class Offer
 
     /**
      * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="offers")
+     * @Groups({"offer:read"})
      */
     private $equipments;
 
     /**
      * @ORM\ManyToOne(targetEntity=OfferType::class, inversedBy="offers")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"offer:read","offer:write"})
      */
     private $offerType;
 
     /**
      * @ORM\OneToMany(targetEntity=OfferComment::class, mappedBy="offer", orphanRemoval=true)
+     * @Groups({"offer:read"})
      */
     private $offerComments;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="offers")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"offer:read","offer:write"})
      */
     private $owner;
 
     /**
      * @ORM\OneToMany(targetEntity=DynamicPropertyValue::class, mappedBy="offer")
+     * @Groups({"offer:read"})
      */
     private $dynamicPropertyValues;
 

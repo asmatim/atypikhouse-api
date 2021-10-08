@@ -7,37 +7,46 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['user:read']],
+    denormalizationContext: ['groups' => ['user:write']],
+)]
 class User
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"user:read","user:write"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups({"user:read","user:write"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Groups({"user:read","user:write"})
      */
     private $birthdate;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user:write"})
      */
     private $password;
 

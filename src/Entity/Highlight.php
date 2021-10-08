@@ -5,28 +5,35 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\HighlightRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=HighlightRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['highlight:read']],
+    denormalizationContext: ['groups' => ['highlight:write']],
+)]
 class Highlight
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"highlight:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"highlight:read","highlight:write"})
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="highlights")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"highlight:read","highlight:write"})
      */
     private $offer;
 

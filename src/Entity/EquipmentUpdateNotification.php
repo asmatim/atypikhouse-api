@@ -5,39 +5,48 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EquipmentUpdateNotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=EquipmentUpdateNotificationRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['equipmentUpdateNotification:read']],
+    denormalizationContext: ['groups' => ['equipmentUpdateNotification:write']],
+)]
 class EquipmentUpdateNotification
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"equipmentUpdateNotification:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"equipmentUpdateNotification:read","equipmentUpdateNotification:write"})
      */
     private $isSent;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"equipmentUpdateNotification:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Equipment::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"equipmentUpdateNotification:read","equipmentUpdateNotification:write"})
      */
     private $equipment;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="equipmentUpdateNotifications")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"equipmentUpdateNotification:read","equipmentUpdateNotification:write"})
      */
     private $owner;
 

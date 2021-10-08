@@ -5,39 +5,48 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DynamicPropertyUpdateNotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DynamicPropertyUpdateNotificationRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['dynamicPropertyUpdateNotification:read']],
+    denormalizationContext: ['groups' => ['dynamicPropertyUpdateNotification:write']],
+)]
 class DynamicPropertyUpdateNotification
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"dynamicPropertyUpdateNotification:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"dynamicPropertyUpdateNotification:read","dynamicPropertyUpdateNotification:write"})
      */
     private $isSent;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Groups({"dynamicPropertyUpdateNotification:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=DynamicProperty::class)
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"dynamicPropertyUpdateNotification:read","dynamicPropertyUpdateNotification:write"})
      */
     private $dynamicProperty;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="dynamicPropertyUpdateNotifications")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"dynamicPropertyUpdateNotification:read","dynamicPropertyUpdateNotification:write"})
      */
     private $owner;
 
