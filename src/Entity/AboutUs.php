@@ -14,24 +14,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     collectionOperations: [
         'get' => [
-            'path' => '/about-us',
+            'path' => '/about_us',
         ],
         'post' => [
-            'path' => '/about-us',
+            'path' => '/about_us',
         ],
     ],
     itemOperations: [
         'get' => [
-            'path' => '/about-us/{id}',
+            'path' => '/about_us/{id}',
         ],
         'put' => [
-            'path' => '/about-us/{id}',
+            'path' => '/about_us/{id}',
         ],
         'delete' => [
-            'path' => '/about-us/{id}',
+            'path' => '/about_us/{id}',
         ],
         'patch' => [
-            'path' => '/about-us/{id}',
+            'path' => '/about_us/{id}',
         ],
     ],
     normalizationContext: ['groups' => ['aboutUs:read']],

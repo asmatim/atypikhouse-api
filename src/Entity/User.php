@@ -48,7 +48,7 @@ class User
     /**
      * @ORM\Column(type="date", nullable=true)
      * @Groups({"user:read","user:write"})
-     * @Assert\Date
+     * @Assert\Type("\DateTimeInterface")
      */
     private $birthdate;
 

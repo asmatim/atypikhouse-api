@@ -7,9 +7,11 @@ use App\Repository\ExceptionalUnavailabilityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Validator\DateRange;
 
 /**
  * @ORM\Entity(repositoryClass=ExceptionalUnavailabilityRepository::class)
+ * @DateRange
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['offerUnavailability:read']],
@@ -21,7 +23,7 @@ class ExceptionalUnavailability extends OfferUnavailability
      * @ORM\Column(type="date")
      * @Groups({"offerUnavailability:read","offerUnavailability:write"})
      * @Assert\NotNull
-     * @Assert\Date
+     * @Assert\Type("\DateTimeInterface")
      */
     private $startDate;
 
@@ -29,7 +31,7 @@ class ExceptionalUnavailability extends OfferUnavailability
      * @ORM\Column(type="date")
      * @Groups({"offerUnavailability:read","offerUnavailability:write"})
      * @Assert\NotNull
-     * @Assert\Date
+     * @Assert\Type("\DateTimeInterface")
      */
     private $endDate;
 

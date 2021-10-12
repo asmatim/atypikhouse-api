@@ -8,9 +8,11 @@ use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Validator\DateRange;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
+ * @DateRange
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['reservation:read']],
@@ -38,7 +40,7 @@ class Reservation
      * @ORM\Column(type="date")
      * @Groups({"reservation:read", "reservation:write"})
      * @Assert\NotNull
-     * @Assert\Date
+     * @Assert\Type("\DateTimeInterface")
      */
     private $startDate;
 
@@ -46,7 +48,7 @@ class Reservation
      * @ORM\Column(type="date")
      * @Groups({"reservation:read", "reservation:write"})
      * @Assert\NotNull
-     * @Assert\Date
+     * @Assert\Type("\DateTimeInterface")
      */
     private $endDate;
 
@@ -82,7 +84,7 @@ class Reservation
      * @ORM\Column(type=ReservationStatus::class, length=255, nullable=true)
      * @Groups({"reservation:read"})
      */
-    private $status;
+    private $status = 'pending';
 
     public function getId(): ?int
     {
@@ -180,7 +182,7 @@ class Reservation
 
     public function setStatus(?string $status): self
     {
-        $this->status = $status;
+        $this->status = ReservationStatus::from($status);
 
         return $this;
     }
