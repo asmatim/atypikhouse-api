@@ -7,9 +7,11 @@ use App\Repository\SocialMediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=SocialMediaRepository::class)
+ * @UniqueEntity("name")
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['socialMedia:read']],
@@ -30,6 +32,7 @@ class SocialMedia
      * @Groups({"socialMedia:read","socialMedia:write"})
      * @Assert\NotNull
      * @Assert\NotBlank
+     * 
      */
     private $name;
 
