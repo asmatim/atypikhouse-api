@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,18 +28,24 @@ class Media
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"media:read","media:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"media:read","media:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"media:read","media:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $alt;
 
@@ -46,6 +53,7 @@ class Media
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="media")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"media:read","media:write"})
+     * @Assert\NotNull
      */
     private $offer;
 

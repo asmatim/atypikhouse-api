@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AboutUsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -13,24 +14,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     collectionOperations: [
         'get' => [
-            'path' => '/about_us',
+            'path' => '/about-us',
         ],
         'post' => [
-            'path' => '/about_us',
+            'path' => '/about-us',
         ],
     ],
     itemOperations: [
         'get' => [
-            'path' => '/about_us/{id}',
+            'path' => '/about-us/{id}',
         ],
         'put' => [
-            'path' => '/about_us/{id}',
+            'path' => '/about-us/{id}',
         ],
         'delete' => [
-            'path' => '/about_us/{id}',
+            'path' => '/about-us/{id}',
         ],
         'patch' => [
-            'path' => '/about_us/{id}',
+            'path' => '/about-us/{id}',
         ],
     ],
     normalizationContext: ['groups' => ['aboutUs:read']],
@@ -49,6 +50,8 @@ class AboutUs
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"aboutUs:read","aboutUs:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $content;
 

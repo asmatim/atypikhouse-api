@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ExceptionalUnavailabilityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -19,12 +20,16 @@ class ExceptionalUnavailability extends OfferUnavailability
     /**
      * @ORM\Column(type="date")
      * @Groups({"offerUnavailability:read","offerUnavailability:write"})
+     * @Assert\NotNull
+     * @Assert\Date
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="date")
      * @Groups({"offerUnavailability:read","offerUnavailability:write"})
+     * @Assert\NotNull
+     * @Assert\Date
      */
     private $endDate;
 

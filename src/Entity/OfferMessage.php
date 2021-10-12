@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OfferMessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,6 +28,8 @@ class OfferMessage
     /**
      * @ORM\Column(type="text")
      * @Groups({"offerMessage:read","offerMessage:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $message;
 
@@ -34,6 +37,7 @@ class OfferMessage
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offerMessage:read","offerMessage:write"})
+     * @Assert\NotNull
      */
     private $fromUser;
 
@@ -41,6 +45,7 @@ class OfferMessage
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offerMessage:read","offerMessage:write"})
+     * @Assert\NotNull
      */
     private $toUser;
 
@@ -48,8 +53,15 @@ class OfferMessage
      * @ORM\ManyToOne(targetEntity=Offer::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offerMessage:read","offerMessage:write"})
+     * @Assert\NotNull
      */
     private $offer;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     * @Groups({"offerMessage:read"})
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -100,6 +112,18 @@ class OfferMessage
     public function setOffer(?Offer $offer): self
     {
         $this->offer = $offer;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

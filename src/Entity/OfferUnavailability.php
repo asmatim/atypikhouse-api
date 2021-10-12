@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OfferUnavailabilityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -26,6 +27,7 @@ class OfferUnavailability
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="offerUnavailabilities")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offerUnavailability:read","offerUnavailability:write"})
+     * @Assert\NotNull
      */
     private $offer;
 

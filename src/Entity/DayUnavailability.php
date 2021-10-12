@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DayUnavailabilityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 use App\Enum\DayOfWeek;
@@ -21,6 +22,8 @@ class DayUnavailability extends OfferUnavailability
     /**
      * @ORM\Column(type=DayOfWeek::class)
      * @Groups({"offerUnavailability:read","offerUnavailability:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $value;
 
@@ -31,8 +34,7 @@ class DayUnavailability extends OfferUnavailability
 
     public function setValue(string $value): self
     {
-        $this->value = $value;
-
+        $this->value = DayOfWeek::from($value);
         return $this;
     }
 

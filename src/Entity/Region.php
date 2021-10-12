@@ -7,6 +7,7 @@ use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -29,6 +30,8 @@ class Region
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"region:read","region:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -36,6 +39,7 @@ class Region
      * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="regions")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"region:read","region:write"})
+     * @Assert\NotNull
      */
     private $country;
 

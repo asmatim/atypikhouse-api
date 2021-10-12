@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\OfferCommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,6 +28,8 @@ class OfferComment
     /**
      * @ORM\Column(type="text")
      * @Groups({"offerComment:read","offerComment:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $content;
 
@@ -34,6 +37,7 @@ class OfferComment
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="offerComments")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offerComment:read","offerComment:write"})
+     * @Assert\NotNull
      */
     private $offer;
 
@@ -41,6 +45,7 @@ class OfferComment
      * @ORM\ManyToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offerComment:read","offerComment:write"})
+     * @Assert\NotNull
      */
     private $client;
 

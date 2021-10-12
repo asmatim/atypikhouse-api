@@ -7,6 +7,7 @@ use App\Repository\OfferRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -29,36 +30,48 @@ class Offer
     /**
      * @ORM\Column(type="string", length=120)
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $summary;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
+     * @Assert\Positive
      */
     private $capacity;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
+     * @Assert\PositiveOrZero
      */
     private $nbBeds;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
+     * @Assert\Positive
      */
     private $unitPrice;
 
@@ -101,6 +114,7 @@ class Offer
      * @ORM\ManyToOne(targetEntity=OfferType::class, inversedBy="offers")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
      */
     private $offerType;
 
@@ -114,6 +128,7 @@ class Offer
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="offers")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"offer:read","offer:write"})
+     * @Assert\NotNull
      */
     private $owner;
 

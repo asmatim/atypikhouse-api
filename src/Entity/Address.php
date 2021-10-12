@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,18 +28,24 @@ class Address
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"address:read","address:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"address:read","address:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $longitude;
 
     /**
      * @ORM\OneToOne(targetEntity=Offer::class, mappedBy="address", cascade={"persist", "remove"})
      * @Groups({"address:read","address:write"})
+     * @Assert\NotNull
      */
     private $offer;
 
@@ -46,6 +53,7 @@ class Address
      * @ORM\ManyToOne(targetEntity=City::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"address:read","address:write"})
+     * @Assert\NotNull
      */
     private $city;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\SocialMediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,18 +28,25 @@ class SocialMedia
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"socialMedia:read","socialMedia:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\Unique
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"socialMedia:read","socialMedia:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"socialMedia:read","socialMedia:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $imageUrl;
 

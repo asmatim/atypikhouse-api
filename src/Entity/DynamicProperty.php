@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Enum\DynamicPropertyType;
 use App\Repository\DynamicPropertyRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -28,18 +29,22 @@ class DynamicProperty
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"dynamicProperty:read","dynamicProperty:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"dynamicProperty:read","dynamicProperty:write"})
+     * @Assert\NotNull
      */
     private $isMandatory;
 
     /**
      * @ORM\Column(type=DynamicPropertyType::class, length=50)
      * @Groups({"dynamicProperty:read","dynamicProperty:write"})
+     * @Assert\NotNull
      */
     private $type;
 
@@ -47,6 +52,7 @@ class DynamicProperty
      * @ORM\ManyToOne(targetEntity=OfferType::class, inversedBy="dynamicProperties")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"dynamicProperty:read","dynamicProperty:write"})
+     * @Assert\NotNull
      */
     private $offerType;
 
@@ -86,7 +92,7 @@ class DynamicProperty
 
     public function setType(string $type): self
     {
-        $this->type = $type;
+        $this->type = DynamicPropertyType::from($type);
 
         return $this;
     }

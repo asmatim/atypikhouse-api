@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Enum\ReservationStatus;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -29,24 +30,31 @@ class Reservation
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"reservation:read", "reservation:write"})
+     * @Assert\NotNull
      */
     private $offer;
 
     /**
      * @ORM\Column(type="date")
      * @Groups({"reservation:read", "reservation:write"})
+     * @Assert\NotNull
+     * @Assert\Date
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="date")
      * @Groups({"reservation:read", "reservation:write"})
+     * @Assert\NotNull
+     * @Assert\Date
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"reservation:read", "reservation:write"})
+     * @Assert\NotNull
+     * @Assert\Positive
      */
     private $unitPrice;
 
@@ -66,12 +74,13 @@ class Reservation
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"reservation:read", "reservation:write"})
+     * @Assert\NotNull
      */
     private $client;
 
     /**
      * @ORM\Column(type=ReservationStatus::class, length=255, nullable=true)
-     * @Groups({"reservation:read", "reservation:write"})
+     * @Groups({"reservation:read"})
      */
     private $status;
 

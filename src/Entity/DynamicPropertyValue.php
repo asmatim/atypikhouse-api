@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DynamicPropertyValueRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -28,6 +29,7 @@ class DynamicPropertyValue
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="dynamicPropertyValues")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"dynamicPropertyValue:read","dynamicPropertyValue:write"})
+     * @Assert\NotNull
      */
     private $offer;
 
@@ -35,12 +37,15 @@ class DynamicPropertyValue
      * @ORM\ManyToOne(targetEntity=DynamicProperty::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"dynamicPropertyValue:read","dynamicPropertyValue:write"})
+     * @Assert\NotNull
      */
     private $dynamicProperty;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"dynamicPropertyValue:read","dynamicPropertyValue:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $value;
 

@@ -7,6 +7,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -29,24 +30,31 @@ class User
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"user:read","user:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"user:read","user:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      * @Groups({"user:read","user:write"})
+     * @Assert\Date
      */
     private $birthdate;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $password;
 
@@ -69,6 +77,25 @@ class User
      * @ORM\OneToMany(targetEntity=DynamicPropertyUpdateNotification::class, mappedBy="owner")
      */
     private $dynamicPropertyUpdateNotifications;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read","user:write"})
+     * @Assert\NotBlank
+     */
+    private $phoneNumber;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user:read","user:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
+     * @Assert\Unique
+     */
+    private $email;
 
     public function __construct()
     {
@@ -247,6 +274,30 @@ class User
                 $dynamicPropertyUpdateNotification->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(?string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

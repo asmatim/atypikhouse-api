@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\CityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,6 +28,8 @@ class City
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"city:read","city:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -34,6 +37,7 @@ class City
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="cities")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"city:read","city:write"})
+     * @Assert\NotNull
      */
     private $region;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EquipmentUpdateNotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,6 +28,7 @@ class EquipmentUpdateNotification
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"equipmentUpdateNotification:read","equipmentUpdateNotification:write"})
+     * @Assert\NotNull
      */
     private $isSent;
 
@@ -40,6 +42,7 @@ class EquipmentUpdateNotification
      * @ORM\ManyToOne(targetEntity=Equipment::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"equipmentUpdateNotification:read","equipmentUpdateNotification:write"})
+     * @Assert\NotNull
      */
     private $equipment;
 
@@ -47,6 +50,7 @@ class EquipmentUpdateNotification
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="equipmentUpdateNotifications")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"equipmentUpdateNotification:read","equipmentUpdateNotification:write"})
+     * @Assert\NotNull
      */
     private $owner;
 

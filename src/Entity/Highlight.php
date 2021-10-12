@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\HighlightRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,6 +28,8 @@ class Highlight
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"highlight:read","highlight:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $content;
 
@@ -34,6 +37,7 @@ class Highlight
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="highlights")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"highlight:read","highlight:write"})
+     * @Assert\NotNull
      */
     private $offer;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DynamicPropertyUpdateNotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -27,6 +28,7 @@ class DynamicPropertyUpdateNotification
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"dynamicPropertyUpdateNotification:read","dynamicPropertyUpdateNotification:write"})
+     * @Assert\NotNull
      */
     private $isSent;
 
@@ -40,6 +42,7 @@ class DynamicPropertyUpdateNotification
      * @ORM\ManyToOne(targetEntity=DynamicProperty::class)
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"dynamicPropertyUpdateNotification:read","dynamicPropertyUpdateNotification:write"})
+     * @Assert\NotNull
      */
     private $dynamicProperty;
 
@@ -47,6 +50,7 @@ class DynamicPropertyUpdateNotification
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="dynamicPropertyUpdateNotifications")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"dynamicPropertyUpdateNotification:read","dynamicPropertyUpdateNotification:write"})
+     * @Assert\NotNull
      */
     private $owner;
 
