@@ -32,7 +32,6 @@ class Equipment
      * @Groups({"equipment:read","equipment:write"})
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Unique
      */
     private $name;
 

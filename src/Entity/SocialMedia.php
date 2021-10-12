@@ -30,7 +30,6 @@ class SocialMedia
      * @Groups({"socialMedia:read","socialMedia:write"})
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Unique
      */
     private $name;
 

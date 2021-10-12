@@ -93,7 +93,6 @@ class User
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )
-     * @Assert\Unique
      */
     private $email;
 

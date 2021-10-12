@@ -32,7 +32,6 @@ class OfferType
      * @Groups({"offerType:read","offerType:write"})
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Unique
      */
     private $name;
 

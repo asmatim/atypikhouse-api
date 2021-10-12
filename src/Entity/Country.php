@@ -32,7 +32,6 @@ class Country
      * @Groups({"country:read","country:write"})
      * @Assert\NotNull
      * @Assert\NotBlank
-     * @Assert\Unique
      */
     private $name;
 
