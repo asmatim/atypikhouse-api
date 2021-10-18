@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use App\Repository\OfferTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=OfferTypeRepository::class)
+ * @ApiFilter(BooleanFilter::class, properties={"isTrending"})
  * @UniqueEntity("name")
  */
 #[ApiResource(
@@ -47,6 +50,12 @@ class OfferType
      * @Groups({"offerType:read"})
      */
     private $dynamicProperties;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"offerType:read","offerType:write"})
+     */
+    private $isTrending = false;
 
     public function __construct()
     {
@@ -127,6 +136,18 @@ class OfferType
                 $dynamicProperty->setOfferType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsTrending(): ?bool
+    {
+        return $this->isTrending;
+    }
+
+    public function setIsTrending(?bool $isTrending): self
+    {
+        $this->isTrending = $isTrending;
 
         return $this;
     }
