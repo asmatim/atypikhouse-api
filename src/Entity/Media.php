@@ -39,14 +39,6 @@ class Media
      * @Assert\NotNull
      * @Assert\NotBlank
      */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"media:read","media:write"})
-     * @Assert\NotNull
-     * @Assert\NotBlank
-     */
     private $alt;
 
     /**
@@ -70,18 +62,6 @@ class Media
     public function setUrl(string $url): self
     {
         $this->url = $url;
-
-        return $this;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(?string $title): self
-    {
-        $this->title = $title;
 
         return $this;
     }
