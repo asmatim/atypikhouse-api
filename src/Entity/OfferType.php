@@ -59,6 +59,7 @@ class OfferType
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"offerType:read","offerType:write"})
      */
     private $imageUrl;
 

@@ -35,8 +35,12 @@ final class OfferTypeFactory extends ModelFactory
 
     protected function getDefaults(): array
     {
+        $width = self::faker()->numberBetween(400,700);
+        $height = self::faker()->numberBetween(300,500);
+
         return [
-            'isTrending' => true
+            'isTrending' => true,
+            'imageUrl' => "https://picsum.photos/$width/$height"
         ];
     }
 
