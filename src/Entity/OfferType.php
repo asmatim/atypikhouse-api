@@ -57,6 +57,11 @@ class OfferType
      */
     private $isTrending = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageUrl;
+
     public function __construct()
     {
         $this->offers = new ArrayCollection();
@@ -148,6 +153,18 @@ class OfferType
     public function setIsTrending(?bool $isTrending): self
     {
         $this->isTrending = $isTrending;
+
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): self
+    {
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }
