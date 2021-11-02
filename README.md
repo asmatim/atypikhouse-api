@@ -11,7 +11,9 @@ This repository contains the backend code of AtypikHouse, it is built with Symfo
 ### Install
 1. Install VirtualBox
 2. Install Vagrant
-3. Clone this repository
+3. Install Composer
+4. Clone this repository
+5. cd to repo and "composer install"
 
 ### Configure
 - Edit the file Homestead.yaml
