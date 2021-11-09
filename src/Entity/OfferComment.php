@@ -7,9 +7,11 @@ use App\Repository\OfferCommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Validator\CanPostComment;
 
 /**
  * @ORM\Entity(repositoryClass=OfferCommentRepository::class)
+ * @CanPostComment
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['offerComment:read']],

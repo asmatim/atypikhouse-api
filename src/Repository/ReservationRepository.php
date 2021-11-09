@@ -19,6 +19,21 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    /**
+     * @return Reservation[] Returns an array of Reservation objects
+     */
+
+    public function findByOfferAndClient($offer, $client)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.offer = :offer')
+            ->andWhere('r.client = :client')
+            ->setParameter('offer', $offer)
+            ->setParameter('client', $client)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects
     //  */
