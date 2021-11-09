@@ -34,6 +34,26 @@ class ReservationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Reservation[] Returns an array of Reservation objects
+     */
+    public function findCollindingReservations($startDate, $endDate, $offer)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('(r.offer = :offer) 
+                    AND
+                        (
+                            (:startDate BETWEEN r.startDate AND r.endDate) 
+                            OR (:endDate BETWEEN r.startDate AND r.endDate) 
+                            OR (:startDate < r.startDate AND :endDate > r.endDate)
+                        )')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->setParameter('offer', $offer)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects
     //  */

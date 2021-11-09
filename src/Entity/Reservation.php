@@ -9,10 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Validator\DateRange;
+use App\Validator\IsOfferAvailable;
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
  * @DateRange
+ * @IsOfferAvailable
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['reservation:read']],
