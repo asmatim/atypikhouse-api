@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -19,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
 )]
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -83,7 +84,6 @@ class User
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read","user:write"})
-     * @Assert\NotBlank
      */
     private $phoneNumber;
 
@@ -104,6 +104,26 @@ class User
         $this->offers = new ArrayCollection();
         $this->equipmentUpdateNotifications = new ArrayCollection();
         $this->dynamicPropertyUpdateNotifications = new ArrayCollection();
+    }
+
+    public function getRoles() {
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function getUsername() {
+        return $this->getEmail();
+    }
+
+    public function eraseCredentials() {
+
+    }
+
+    public function getUserIdentifier() {
+        return $this->getEmail();
     }
 
     public function getId(): ?int
