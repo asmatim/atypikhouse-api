@@ -38,7 +38,7 @@ final class UserFactory extends ModelFactory
         return [
             'firstName' => self::faker()->firstName(),
             'lastName' => self::faker()->lastName(),
-            'password' => self::faker()->text(),
+            'password' => "azerty",
             'email' => self::faker()->email(),
             'phoneNumber' => self::faker()->phoneNumber(),
             'birthdate' => self::faker()->dateTimeBetween('-60 years', '-18 years'),

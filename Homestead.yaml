@@ -29,3 +29,6 @@ features:
         webdriver: false
 name: atypikhouse-api
 hostname: atypikhouse-api
+ports:
+    - send: 8080
+      to: 8080
