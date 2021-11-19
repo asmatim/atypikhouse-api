@@ -90,10 +90,13 @@ class KeycloakService
             "firstName" => $user->getFirstName(),
             "lastName" => $user->getLastName(),
             "enabled" => true,
+            "attributes" => [
+                "roles" => json_encode($user->getRoles())
+            ],
             "credentials" => [
                 [
                     "type" => "password",
-                    "value" => $user->getPassword(),
+                    "value" => $user->getPlainPassword(),
                     "temporary" => false,
                 ]
             ]

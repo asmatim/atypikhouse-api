@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -55,11 +56,16 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:write"})
+     */
+    private $password;
+
+    /**
+     * @Groups("user:write")
+     * @SerializedName("password")
      * @Assert\NotNull
      * @Assert\NotBlank
      */
-    private $password;
+    private $plainPassword;
 
     /**
      * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="client")
@@ -98,6 +104,12 @@ class User implements UserInterface
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     * @Groups({"user:read","user:write"})
+     */
+    private $roles = [];
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -106,8 +118,8 @@ class User implements UserInterface
         $this->dynamicPropertyUpdateNotifications = new ArrayCollection();
     }
 
-    public function getRoles() {
-        return ['ROLE_USER'];
+    public function getRoles(): ?array {
+        return $this->roles;
     }
 
     public function getSalt() {
@@ -119,7 +131,7 @@ class User implements UserInterface
     }
 
     public function eraseCredentials() {
-
+        $this->setPlainPassword(null);
     }
 
     public function getUserIdentifier() {
@@ -175,6 +187,18 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }
@@ -319,6 +343,13 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function setRoles(?array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
