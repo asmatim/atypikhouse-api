@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ApiFilter(SearchFilter::class, properties={"email" : "exact"})
  * @UniqueEntity("email")
  */
 #[ApiResource(
@@ -118,23 +121,28 @@ class User implements UserInterface
         $this->dynamicPropertyUpdateNotifications = new ArrayCollection();
     }
 
-    public function getRoles(): ?array {
+    public function getRoles(): ?array
+    {
         return $this->roles;
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return null;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->getEmail();
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
         $this->setPlainPassword(null);
     }
 
-    public function getUserIdentifier() {
+    public function getUserIdentifier()
+    {
         return $this->getEmail();
     }
 
