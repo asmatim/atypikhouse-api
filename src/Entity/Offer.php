@@ -14,13 +14,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
- * @ApiFilter(SearchFilter::class, properties={"offerType" : "exact"})
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['offer:read']],
     denormalizationContext: ['groups' => ['offer:write']],
     paginationItemsPerPage: 9
 )]
+#[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', "offerType" => "exact"])]
 class Offer
 {
     /**
