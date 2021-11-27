@@ -11,3 +11,5 @@
 ###< symfony/framework-bundle ###
 
 /.vagrant
+.idea
+/swagger_docs.json

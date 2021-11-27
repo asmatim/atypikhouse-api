@@ -50,6 +50,7 @@ cd ~/atypikhouse-api
 symfony console doctrine:database:drop --force
 symfony console doctrine:database:create
 symfony console doctrine:schema:create
+php bin/console api:openapi:export --output=swagger_docs.json
 
 # Wait for keycloak to start and import config
 sleep 120

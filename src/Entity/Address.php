@@ -21,7 +21,7 @@ class Address
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"address:read"})
+     * @Groups({"address:read","offer:read"})
      */
     private $id;
 

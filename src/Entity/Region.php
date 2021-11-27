@@ -29,7 +29,7 @@ class Region
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"region:read","region:write"})
+     * @Groups({"region:read","region:write","address:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -38,7 +38,7 @@ class Region
     /**
      * @ORM\ManyToOne(targetEntity=Country::class, inversedBy="regions")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"region:read","region:write"})
+     * @Groups({"region:read","region:write","address:read"})
      * @Assert\NotNull
      */
     private $country;
