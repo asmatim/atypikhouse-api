@@ -31,7 +31,7 @@ class Country
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"country:read","country:write"})
+     * @Groups({"country:read","country:write","address:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */

@@ -27,7 +27,7 @@ class Highlight
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"highlight:read","highlight:write"})
+     * @Groups({"highlight:read","highlight:write","offer:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */

@@ -27,7 +27,7 @@ class City
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"city:read","city:write"})
+     * @Groups({"city:read","city:write","address:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -36,7 +36,7 @@ class City
     /**
      * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="cities")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"city:read","city:write"})
+     * @Groups({"city:read","city:write","address:read"})
      * @Assert\NotNull
      */
     private $region;

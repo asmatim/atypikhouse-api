@@ -88,6 +88,14 @@ class Reservation
      */
     private $status = 'pending';
 
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"reservation:read", "reservation:write"})
+     * @Assert\NotNull
+     * @Assert\Positive
+     */
+    private $totalPrice;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -185,6 +193,18 @@ class Reservation
     public function setStatus(?string $status): self
     {
         $this->status = ReservationStatus::from($status);
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?int
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(?int $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
