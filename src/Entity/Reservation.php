@@ -89,7 +89,10 @@ class Reservation
     private $status = 'pending';
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * @Groups({"reservation:read", "reservation:write"})
+     * @Assert\NotNull
+     * @Assert\Positive
      */
     private $totalPrice;
 
