@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Filters\OfferAvailabilityFilter;
+use App\Filters\OfferSearchFilter;
 use App\Repository\OfferRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,7 +22,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ['groups' => ['offer:write']],
     paginationItemsPerPage: 9
 )]
-#[ApiFilter(SearchFilter::class, properties: ['title' => 'partial', "offerType" => "exact"])]
+#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact"])]
+#[ApiFilter(OfferSearchFilter::class)]
+#[ApiFilter(OfferAvailabilityFilter::class)]
 class Offer
 {
     /**
