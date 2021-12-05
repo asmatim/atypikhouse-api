@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use App\Enum\ReservationStatus;
 use App\Repository\ReservationRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +23,8 @@ use App\Validator\IsOfferAvailable;
     normalizationContext: ['groups' => ['reservation:read']],
     denormalizationContext: ['groups' => ['reservation:write']],
 )]
+#[ApiFilter(SearchFilter::class, properties: ['status' => 'exact' , 'offer' => 'exact' , 'client' => 'exact'])]
+#[ApiFilter(DateFilter::class, properties: ['endDate'])]
 class Reservation
 {
     /**
@@ -64,13 +69,13 @@ class Reservation
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
-     * @Groups({"reservation:read"})
+     * @Groups({"reservation:read" , "reservation:write"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"reservation:read"})
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $lastModified;
 
@@ -84,7 +89,7 @@ class Reservation
 
     /**
      * @ORM\Column(type=ReservationStatus::class, length=255, nullable=true)
-     * @Groups({"reservation:read"})
+     * @Groups({"reservation:read" , "reservation:write"})
      */
     private $status = 'pending';
 
