@@ -27,7 +27,7 @@ class Media
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"media:read","media:write", "offer:read"})
+     * @Groups({"media:read","media:write", "offer:read" , "favorites:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -35,7 +35,7 @@ class Media
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"media:read","media:write", "offer:read"})
+     * @Groups({"media:read","media:write", "offer:read" , "favorites:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
