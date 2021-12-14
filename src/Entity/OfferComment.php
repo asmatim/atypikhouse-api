@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Validator\CanPostComment;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ORM\Entity(repositoryClass=OfferCommentRepository::class)
@@ -17,6 +19,7 @@ use App\Validator\CanPostComment;
     normalizationContext: ['groups' => ['offerComment:read']],
     denormalizationContext: ['groups' => ['offerComment:write']],
 )]
+#[ApiFilter(SearchFilter::class, properties: ["offer" => "exact"])]
 class OfferComment
 {
     /**
