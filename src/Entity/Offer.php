@@ -31,13 +31,13 @@ class Offer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"offer:read","favorites:read"})
+     * @Groups({"offer:read","favorites:read","reservation:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=120)
-     * @Groups({"offer:read","offer:write" ,"favorites:read"})
+     * @Groups({"offer:read","offer:write" ,"favorites:read","reservation:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -45,7 +45,7 @@ class Offer
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"offer:read","offer:write" , "favorites:read"})
+     * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -53,7 +53,7 @@ class Offer
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"offer:read","offer:write" , "favorites:read"})
+     * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -61,7 +61,7 @@ class Offer
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"offer:read","offer:write" , "favorites:read"})
+     * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
      * @Assert\NotNull
      * @Assert\Positive
      */
@@ -69,7 +69,7 @@ class Offer
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"offer:read","offer:write" , "favorites:read"})
+     * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
      * @Assert\NotNull
      * @Assert\PositiveOrZero
      */
@@ -77,7 +77,7 @@ class Offer
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"offer:read","offer:write" , "favorites:read"})
+     * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
      * @Assert\NotNull
      * @Assert\Positive
      */
@@ -91,7 +91,7 @@ class Offer
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="offer", orphanRemoval=true)
-     * @Groups({"offer:read" , "favorites:read"})
+     * @Groups({"offer:read" , "favorites:read","reservation:read"})
      */
     private $media;
 

@@ -52,7 +52,7 @@ class Address
     /**
      * @ORM\ManyToOne(targetEntity=City::class)
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"address:read","address:write"})
+     * @Groups({"address:read","address:write","offer:read"})
      * @Assert\NotNull
      */
     private $city;
