@@ -27,7 +27,7 @@ class City
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"city:read","city:write","address:read"})
+     * @Groups({"city:read","city:write","address:read","offer:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
