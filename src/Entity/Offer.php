@@ -27,6 +27,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 #[ApiFilter(OfferSearchFilter::class)]
 #[ApiFilter(OfferAvailabilityFilter::class)]
 #[ApiFilter(RangeFilter::class, properties: ['capacity'])]
+#[ApiFilter(RangeFilter::class, properties: ['unitPrice'])]
 class Offer
 {
     /**
