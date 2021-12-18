@@ -44,7 +44,7 @@ class Reservation
     private $offer;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      * @Groups({"reservation:read", "reservation:write"})
      * @Assert\NotNull
      * @Assert\Type("\DateTimeInterface")
@@ -52,7 +52,7 @@ class Reservation
     private $startDate;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      * @Groups({"reservation:read", "reservation:write"})
      * @Assert\NotNull
      * @Assert\Type("\DateTimeInterface")

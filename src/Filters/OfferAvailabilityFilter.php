@@ -4,6 +4,8 @@ namespace App\Filters;
 
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\QueryBuilder;
 
 class OfferAvailabilityFilter extends AbstractFilter
@@ -27,12 +29,18 @@ class OfferAvailabilityFilter extends AbstractFilter
                     '
                 );
             //dd($sqb->getQuery()->getSQL());
+            // set Start Date to 4pm (16h UTC)
+            $startDate = new DateTime($value, new DateTimeZone('UTC'));
+            $startDate->modify("+16 hours");
             $queryBuilder->andWhere($queryBuilder->expr()->not($queryBuilder->expr()->exists($sqb->getDQL())))
-                ->setParameter('startDate', $value);
+                ->setParameter('startDate', $startDate);
         }
 
         if ($property === 'endDate') {
-            $queryBuilder->setParameter('endDate', $value);
+            // set End Date to 11am (11h UTC)
+            $endDate = new DateTime($value, new DateTimeZone('UTC'));
+            $endDate->modify("+11 hours");
+            $queryBuilder->setParameter('endDate', $endDate);
         }
 
         // TODO
