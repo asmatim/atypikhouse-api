@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
@@ -25,6 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact"])]
 #[ApiFilter(OfferSearchFilter::class)]
 #[ApiFilter(OfferAvailabilityFilter::class)]
+#[ApiFilter(RangeFilter::class, properties: ['capacity'])]
 class Offer
 {
     /**
