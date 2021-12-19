@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Reservation;
+use App\Enum\ReservationStatus;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -46,10 +47,13 @@ class ReservationRepository extends ServiceEntityRepository
                             (:startDate BETWEEN r.startDate AND r.endDate) 
                             OR (:endDate BETWEEN r.startDate AND r.endDate) 
                             OR (:startDate < r.startDate AND :endDate > r.endDate)
-                        )')
+                        )
+                    AND r.status != :status    
+                    ')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('offer', $offer)
+            ->setParameter('status', ReservationStatus::PENDING())
             ->getQuery()
             ->getResult();
     }

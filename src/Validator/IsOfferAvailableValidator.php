@@ -30,8 +30,8 @@ class IsOfferAvailableValidator extends ConstraintValidator
             return;
         }
 
-        // $this->context->buildViolation($constraint->message)
-        //     ->setParameter('{{ offer }}', $entity->getOffer()->getTitle())
-        //     ->addViolation();
+        $this->context->buildViolation($constraint->message)
+            ->setParameter('{{ offer }}', $entity->getOffer()->getTitle())
+            ->addViolation();
     }
 }
