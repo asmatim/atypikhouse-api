@@ -18,6 +18,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 #[ApiResource(
     normalizationContext: ['groups' => ['offerComment:read']],
     denormalizationContext: ['groups' => ['offerComment:write']],
+    paginationItemsPerPage: 9
 )]
 #[ApiFilter(SearchFilter::class, properties: ["offer" => "exact"])]
 class OfferComment

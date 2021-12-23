@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['offerMessage:read']],
     denormalizationContext: ['groups' => ['offerMessage:write']],
+    paginationItemsPerPage: 9
 )]
 class OfferMessage
 {

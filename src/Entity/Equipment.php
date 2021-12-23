@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ApiResource(
     normalizationContext: ['groups' => ['equipment:read']],
     denormalizationContext: ['groups' => ['equipment:write']],
+    paginationItemsPerPage: 9
 )]
 class Equipment
 {

@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ApiResource(
     normalizationContext: ['groups' => ['country:read']],
     denormalizationContext: ['groups' => ['country:write']],
+    paginationItemsPerPage: 9
 )]
 class Country
 {

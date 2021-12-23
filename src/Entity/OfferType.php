@@ -21,6 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ApiResource(
     normalizationContext: ['groups' => ['offerType:read']],
     denormalizationContext: ['groups' => ['offerType:write']],
+    paginationItemsPerPage: 9
 )]
 class OfferType
 {

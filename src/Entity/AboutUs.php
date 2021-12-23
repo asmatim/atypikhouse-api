@@ -36,6 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     normalizationContext: ['groups' => ['aboutUs:read']],
     denormalizationContext: ['groups' => ['aboutUs:write']],
+    paginationItemsPerPage: 9
 )]
 class AboutUs
 {

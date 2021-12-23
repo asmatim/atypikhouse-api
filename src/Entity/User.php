@@ -23,6 +23,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ApiResource(
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
+    paginationItemsPerPage: 9
 )]
 class User implements UserInterface
 {

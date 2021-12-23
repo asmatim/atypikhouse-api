@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['city:read']],
     denormalizationContext: ['groups' => ['city:write']],
+    paginationItemsPerPage: 9
 )]
 class City
 {

@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['region:read']],
     denormalizationContext: ['groups' => ['region:write']],
+    paginationItemsPerPage: 9
 )]
 class Region
 {
