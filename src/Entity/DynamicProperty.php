@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['dynamicProperty:read']],
     denormalizationContext: ['groups' => ['dynamicProperty:write']],
+    paginationItemsPerPage: 9
 )]
 class DynamicProperty
 {

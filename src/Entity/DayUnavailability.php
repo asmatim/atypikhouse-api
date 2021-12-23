@@ -37,5 +37,4 @@ class DayUnavailability extends OfferUnavailability
         $this->value = DayOfWeek::from($value);
         return $this;
     }
-
 }

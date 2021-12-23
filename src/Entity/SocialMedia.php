@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ApiResource(
     normalizationContext: ['groups' => ['socialMedia:read']],
     denormalizationContext: ['groups' => ['socialMedia:write']],
+    paginationItemsPerPage: 9
 )]
 class SocialMedia
 {
