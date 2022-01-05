@@ -23,6 +23,15 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ApiResource(
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
+    collectionOperations: [
+        'get',
+        'post' => ['validation_groups' => ['Default', 'postValidation']]
+    ],
+    itemOperations: [
+        'delete',
+        'get',
+        'put'
+    ],
     paginationItemsPerPage: 9
 )]
 class User implements UserInterface
@@ -66,8 +75,8 @@ class User implements UserInterface
     /**
      * @Groups("user:write")
      * @SerializedName("password")
-     * @Assert\NotNull
-     * @Assert\NotBlank
+     * @Assert\NotNull(groups={"postValidation"})
+     * @Assert\NotBlank(groups={"postValidation"})
      */
     private $plainPassword;
 
