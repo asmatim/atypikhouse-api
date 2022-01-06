@@ -43,6 +43,10 @@ fi
 
 echo "Extracting keycloak binaries..." 
 unzip -q keycloak-15.0.2.zip
+# copy custom themes
+echo " copying custom themes"
+cp -r ./atypikhouse-api/data/keycloak-themes/. ./keycloak-15.0.2/themes
+
 nohup ./keycloak-15.0.2/bin/standalone.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file="atypikhouse-api/data/keycloak-config.json" &>/dev/null &
 
 # Create Database and schema
