@@ -45,6 +45,11 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $externalId;
+
+    /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"user:read","user:write","offerComment:read"})
      * @Assert\NotNull
@@ -77,6 +82,7 @@ class User implements UserInterface
      * @SerializedName("password")
      * @Assert\NotNull(groups={"postValidation"})
      * @Assert\NotBlank(groups={"postValidation"})
+     * @Assert\Length(min = 6)
      */
     private $plainPassword;
 
@@ -368,6 +374,18 @@ class User implements UserInterface
     public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    public function setExternalId(string $externalId): self
+    {
+        $this->externalId = $externalId;
 
         return $this;
     }
