@@ -20,7 +20,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
     denormalizationContext: ['groups' => ['offerComment:write']],
     paginationItemsPerPage: 9
 )]
-#[ApiFilter(SearchFilter::class, properties: ["offer" => "exact"])]
+#[ApiFilter(SearchFilter::class, properties: ["offer" => "exact" ,"client" => "exact"])]
 class OfferComment
 {
     /**
