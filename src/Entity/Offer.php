@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use App\Enum\OfferStatus;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
@@ -23,11 +24,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
     denormalizationContext: ['groups' => ['offer:write']],
     paginationItemsPerPage: 9
 )]
-#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact"])]
+#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact", "status" => "exact"])]
 #[ApiFilter(OfferSearchFilter::class)]
 #[ApiFilter(OfferAvailabilityFilter::class)]
-#[ApiFilter(RangeFilter::class, properties: ['capacity'])]
-#[ApiFilter(RangeFilter::class, properties: ['unitPrice'])]
+#[ApiFilter(RangeFilter::class, properties: ['capacity', 'unitPrice'])]
 class Offer
 {
     /**
@@ -148,6 +148,12 @@ class Offer
      * @Groups({"offer:read"})
      */
     private $dynamicPropertyValues;
+
+    /**
+     * @ORM\Column(type=OfferStatus::class, length=255, nullable=true)
+     * @Groups({"offer:read","offer:write"})
+     */
+    private $status = 'unpublished';
 
     public function __construct()
     {
@@ -476,6 +482,18 @@ class Offer
                 $dynamicPropertyValue->setOffer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?OfferStatus
+    {
+        return OfferStatus::from($this->status);
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = OfferStatus::from($status);
 
         return $this;
     }

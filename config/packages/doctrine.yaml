@@ -5,11 +5,13 @@ doctrine:
             App\Enum\DayOfWeek: Doctrine\DBAL\Types\StringType
             App\Enum\ReservationStatus: Doctrine\DBAL\Types\StringType
             App\Enum\DynamicPropertyType: Doctrine\DBAL\Types\StringType
+            App\Enum\OfferStatus: Doctrine\DBAL\Types\StringType
         
         mapping_types:
             App\Enum\DayOfWeek: string
             App\Enum\ReservationStatus: string
             App\Enum\DynamicPropertyType: string
+            App\Enum\OfferStatus: string
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)

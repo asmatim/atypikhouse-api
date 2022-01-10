@@ -23,6 +23,15 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ApiResource(
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']],
+    collectionOperations: [
+        'get',
+        'post' => ['validation_groups' => ['Default', 'postValidation']]
+    ],
+    itemOperations: [
+        'delete',
+        'get',
+        'put'
+    ],
     paginationItemsPerPage: 9
 )]
 class User implements UserInterface
@@ -34,6 +43,11 @@ class User implements UserInterface
      * @Groups({"user:read","offerComment:read"})
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $externalId;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -66,8 +80,9 @@ class User implements UserInterface
     /**
      * @Groups("user:write")
      * @SerializedName("password")
-     * @Assert\NotNull
-     * @Assert\NotBlank
+     * @Assert\NotNull(groups={"postValidation"})
+     * @Assert\NotBlank(groups={"postValidation"})
+     * @Assert\Length(min = 6)
      */
     private $plainPassword;
 
@@ -359,6 +374,18 @@ class User implements UserInterface
     public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    public function setExternalId(string $externalId): self
+    {
+        $this->externalId = $externalId;
 
         return $this;
     }
