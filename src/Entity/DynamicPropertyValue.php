@@ -35,7 +35,7 @@ class DynamicPropertyValue
 
     /**
      * @ORM\ManyToOne(targetEntity=DynamicProperty::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      * @Groups({"dynamicPropertyValue:read","dynamicPropertyValue:write"})
      * @Assert\NotNull
      */
