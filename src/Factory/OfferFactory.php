@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Offer;
+use App\Enum\OfferStatus;
 use App\Repository\OfferRepository;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
@@ -49,6 +50,7 @@ final class OfferFactory extends ModelFactory
             'media' => MediaFactory::new()->many(self::faker()->numberBetween(1, 7)),
             'highlights' => HighlightFactory::new()->many(self::faker()->numberBetween(3, 6)),
             'address' => AddressFactory::createOne(),
+            'status' => OfferStatus::PUBLISHED()
         ];
     }
 
