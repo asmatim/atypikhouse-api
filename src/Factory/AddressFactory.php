@@ -41,7 +41,7 @@ final class AddressFactory extends ModelFactory
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'latitude' => self::faker()->latitude(10, 81),
             'longitude' => self::faker()->longitude(35, 70),
-            'city' => CityFactory::find(['name'=>'Paris'])
+            'city' => CityFactory::random()
         ];
     }
 
