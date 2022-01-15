@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit;
+namespace App\Tests\Unit\Repository;
 
 use App\Factory\CityFactory;
 use App\Factory\CountryFactory;
