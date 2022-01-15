@@ -39,9 +39,10 @@ final class ReservationFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'startDate' => self::faker()->datetime(),
-            'endDate' => self::faker()->datetime(),
+            'startDate' => self::faker()->dateTimeBetween('+10 days', '+20 days'),
+            'endDate' => self::faker()->dateTimeBetween('+21 days', '+27 days'),
             'unitPrice' => self::faker()->randomNumber(),
+            "totalPrice" => self::faker()->randomNumber(),
         ];
     }
 
