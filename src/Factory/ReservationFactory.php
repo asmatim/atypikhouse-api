@@ -42,6 +42,7 @@ final class ReservationFactory extends ModelFactory
             'startDate' => self::faker()->dateTimeBetween('+10 days', '+20 days'),
             'endDate' => self::faker()->dateTimeBetween('+21 days', '+27 days'),
             'unitPrice' => self::faker()->randomNumber(),
+            "totalPrice" => self::faker()->randomNumber(),
         ];
     }
 
