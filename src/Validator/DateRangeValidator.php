@@ -11,27 +11,31 @@ class DateRangeValidator extends ConstraintValidator
     {
         /* @var $constraint \App\Validator\DateRange */
 
+        if (null === $entity) {
+            return;
+        }
+
         $startDateField = 'get' . ucfirst($constraint->startDateField);
         $endDateField = 'get' . ucfirst($constraint->endDateField);
 
-        if (null === $entity || null === $entity->$startDateField() || null === $entity->$endDateField()) {
-            return;
+        if (null != $entity->$startDateField() && null != $entity->$endDateField()) {
+            if ($entity->$startDateField() <= $entity->$endDateField()) {
+                return;
+            }
         }
 
-
-        if ($entity->$startDateField() <= $entity->$endDateField()) {
-            return;
-        }
+        $formattedStartDate = $entity->$startDateField() ? $entity->$startDateField()->format('Y-m-d H:i:s') : '';
+        $formattedEndDate = $entity->$endDateField() ? $entity->$endDateField()->format('Y-m-d H:i:s') : '';
 
         $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ startDate }}', $entity->$startDateField()->format('Y-m-d H:i:s'))
-            ->setParameter('{{ endDate }}', $entity->$endDateField()->format('Y-m-d H:i:s'))
+            ->setParameter('{{ startDate }}', $formattedStartDate)
+            ->setParameter('{{ endDate }}', $formattedEndDate)
             ->atPath($constraint->startDateField)
             ->addViolation();
 
         $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ startDate }}', $entity->$startDateField()->format('Y-m-d H:i:s'))
-            ->setParameter('{{ endDate }}', $entity->$endDateField()->format('Y-m-d H:i:s'))
+            ->setParameter('{{ startDate }}', $formattedStartDate)
+            ->setParameter('{{ endDate }}',  $formattedEndDate)
             ->atPath($constraint->endDateField)
             ->addViolation();
     }
