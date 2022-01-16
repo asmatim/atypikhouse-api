@@ -30,7 +30,7 @@ class DynamicPropertyValue
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="dynamicPropertyValues")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"dynamicPropertyValue:read", "dynamicPropertyValue:write"})
+     * @Groups({"dynamicPropertyValue:read"})
      * @Assert\NotNull
      */
     private $offer;
@@ -38,14 +38,14 @@ class DynamicPropertyValue
     /**
      * @ORM\ManyToOne(targetEntity=DynamicProperty::class)
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Groups({"dynamicPropertyValue:read", "dynamicPropertyValue:write", "offer:write"})
+     * @Groups({"dynamicPropertyValue:read", "offer:write"})
      * @Assert\NotNull
      */
     private $dynamicProperty;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"dynamicPropertyValue:read", "dynamicPropertyValue:write", "offer:write"})
+     * @Groups({"dynamicPropertyValue:read", "offer:write"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
