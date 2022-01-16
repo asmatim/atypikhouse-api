@@ -148,6 +148,7 @@ class Offer
     /**
      * @ORM\OneToMany(targetEntity=DynamicPropertyValue::class, mappedBy="offer", cascade={"persist", "remove"})
      * @Groups({"offer:read", "offer:write"})
+     * @Assert\Valid
      */
     private $dynamicPropertyValues;
 

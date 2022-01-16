@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DynamicPropertyValueRepository;
+use App\Validator\ValidDynamicPropertyValue;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DynamicPropertyValueRepository::class)
+ * @ValidDynamicPropertyValue
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['dynamicPropertyValue:read']],
