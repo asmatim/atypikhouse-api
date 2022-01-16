@@ -15,9 +15,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 use App\Enum\OfferStatus;
+use App\Validator\OfferDynamicProperty;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
+ * @OfferDynamicProperty
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['offer:read']],
@@ -106,7 +108,7 @@ class Offer
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="offer", cascade={"persist", "remove"})
-     * @Groups({"offer:read"})
+     * @Groups({"offer:read", "offer:write"})
      */
     private $address;
 
@@ -117,7 +119,7 @@ class Offer
 
     /**
      * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="offers")
-     * @Groups({"offer:read"})
+     * @Groups({"offer:read", "offer:write"})
      */
     private $equipments;
 
@@ -144,8 +146,8 @@ class Offer
     private $owner;
 
     /**
-     * @ORM\OneToMany(targetEntity=DynamicPropertyValue::class, mappedBy="offer")
-     * @Groups({"offer:read"})
+     * @ORM\OneToMany(targetEntity=DynamicPropertyValue::class, mappedBy="offer", cascade={"persist", "remove"})
+     * @Groups({"offer:read", "offer:write"})
      */
     private $dynamicPropertyValues;
 

@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\CityRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,8 +16,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['city:read']],
     denormalizationContext: ['groups' => ['city:write']],
+    attributes: ["pagination_client_enabled" => true],
     paginationItemsPerPage: 9
 )]
+#[ApiFilter(SearchFilter::class, properties: ["region.id" => "exact"])]
 class City
 {
     /**

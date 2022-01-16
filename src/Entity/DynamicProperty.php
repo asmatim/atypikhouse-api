@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Enum\DynamicPropertyType;
 use App\Repository\DynamicPropertyRepository;
@@ -15,8 +17,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['dynamicProperty:read']],
     denormalizationContext: ['groups' => ['dynamicProperty:write']],
+    attributes: ["pagination_client_enabled" => true],
     paginationItemsPerPage: 9
 )]
+#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact"])]
 class DynamicProperty
 {
     /**

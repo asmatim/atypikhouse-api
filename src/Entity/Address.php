@@ -26,18 +26,16 @@ class Address
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"address:read","address:write"})
-     * @Assert\NotNull
      * @Assert\NotBlank
      * @
      */
     private $latitude;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"address:read","address:write"})
-     * @Assert\NotNull
      * @Assert\NotBlank
      */
     private $longitude;
@@ -52,10 +50,26 @@ class Address
     /**
      * @ORM\ManyToOne(targetEntity=City::class)
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"address:read","address:write","offer:read"})
+     * @Groups({"address:read","address:write","offer:read", "offer:write"})
      * @Assert\NotNull
      */
     private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"offer:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     */
+    private $line1;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     * @Groups({"offer:write"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
+     */
+    private $postalCode;
 
     public function getId(): ?int
     {
@@ -116,6 +130,30 @@ class Address
     public function setCity(?City $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getLine1(): ?string
+    {
+        return $this->line1;
+    }
+
+    public function setLine1(string $line1): self
+    {
+        $this->line1 = $line1;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?string
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(string $postalCode): self
+    {
+        $this->postalCode = $postalCode;
 
         return $this;
     }
