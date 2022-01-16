@@ -109,6 +109,8 @@ class Offer
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="offer", cascade={"persist", "remove"})
      * @Groups({"offer:read", "offer:write"})
+     * @Assert\NotNull
+     * @Assert\Valid
      */
     private $address;
 

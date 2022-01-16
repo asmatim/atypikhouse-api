@@ -27,30 +27,28 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"address:read","address:write"})
-     * @Assert\NotBlank
-     * @
+     * @Groups({"address:read"} )
+     * @Assert\NotBlank(allowNull=true)
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"address:read","address:write"})
-     * @Assert\NotBlank
+     * @Groups({"address:read"} )
+     * @Assert\NotBlank(allowNull=true)
      */
     private $longitude;
 
     /**
      * @ORM\OneToOne(targetEntity=Offer::class, mappedBy="address", cascade={"persist", "remove"})
-     * @Groups({"address:read","address:write"})
-     * @Assert\NotNull
+     * @Groups({"address:read"} )
      */
     private $offer;
 
     /**
      * @ORM\ManyToOne(targetEntity=City::class)
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"address:read","address:write","offer:read", "offer:write"})
+     * @Groups({"address:read", "offer:read", "offer:write"})
      * @Assert\NotNull
      */
     private $city;
