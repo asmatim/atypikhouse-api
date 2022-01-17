@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Exceptions\InvalidRequestParamsException;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -46,6 +47,11 @@ class KeycloakService
             return $this->getUserExternalIdFromHeader($response);
         }
 
+        // Email already exists in Keycloak
+        if ($response->getStatusCode() == Response::HTTP_CONFLICT) {
+            throw new InvalidRequestParamsException("Email Already exists.");
+        }
+
         if ($response->getStatusCode() !== Response::HTTP_CREATED) {
             throw new RuntimeException("Error couldn't create User.");
         }
@@ -69,6 +75,11 @@ class KeycloakService
 
         if ($response->getStatusCode() == Response::HTTP_NO_CONTENT) {
             return;
+        }
+
+        // Email already exists in Keycloak
+        if ($response->getStatusCode() == Response::HTTP_CONFLICT) {
+            throw new InvalidRequestParamsException("Email Already exists.");
         }
 
         if ($response->getStatusCode() !== Response::HTTP_NO_CONTENT) {
