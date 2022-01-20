@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\DynamicPropertyValueRepository;
 use App\Validator\ValidDynamicPropertyValue;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +18,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['dynamicPropertyValue:read']],
     denormalizationContext: ['groups' => ['dynamicPropertyValue:write']],
+    attributes: ["pagination_client_enabled" => true],
 )]
+#[ApiFilter(SearchFilter::class, properties: ["offer.id" => "exact"])]
 class DynamicPropertyValue
 {
     /**
@@ -46,8 +50,6 @@ class DynamicPropertyValue
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"dynamicPropertyValue:read", "offer:write"})
-     * @Assert\NotNull
-     * @Assert\NotBlank
      */
     private $value;
 

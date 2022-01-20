@@ -27,7 +27,7 @@ class DynamicProperty
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"dynamicProperty:read"})
+     * @Groups({"dynamicProperty:read", "dynamicPropertyValue:read"})
      */
     private $id;
 
@@ -48,7 +48,7 @@ class DynamicProperty
 
     /**
      * @ORM\Column(type=DynamicPropertyType::class, length=50)
-     * @Groups({"dynamicProperty:read","dynamicProperty:write"})
+     * @Groups({"dynamicProperty:read","dynamicProperty:write", "dynamicPropertyValue:read"})
      * @Assert\NotNull
      */
     private $type;

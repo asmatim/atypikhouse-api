@@ -55,7 +55,7 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"offer:write"})
+     * @Groups({"offer:write", "address:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -63,7 +63,7 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=20)
-     * @Groups({"offer:write"})
+     * @Groups({"offer:write", "address:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */

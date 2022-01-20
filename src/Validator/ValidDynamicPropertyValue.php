@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraint;
 class ValidDynamicPropertyValue extends Constraint
 {
     public $messageType = 'Le type de la propriété dynamique "{{ dynamicProperty }}" doit être {{ type }}.';
+    public $messageMandatory = 'La valeur de la propriété dynamique "{{ dynamicProperty }}" est obligatoire.';
 
     public $targetField = 'value';
 

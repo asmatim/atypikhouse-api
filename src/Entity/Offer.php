@@ -102,7 +102,7 @@ class Offer
 
     /**
      * @ORM\OneToMany(targetEntity=Highlight::class, mappedBy="offer", orphanRemoval=true)
-     * @Groups({"offer:read"})
+     * @Groups({"offer:read", "offer:write"})
      */
     private $highlights;
 
