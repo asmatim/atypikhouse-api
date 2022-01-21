@@ -21,7 +21,7 @@ class Media
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"media:read"})
+     * @Groups({"media:read", "offer:read"})
      */
     private $id;
 

@@ -101,7 +101,7 @@ class Offer
     private $media;
 
     /**
-     * @ORM\OneToMany(targetEntity=Highlight::class, mappedBy="offer", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Highlight::class, mappedBy="offer", orphanRemoval=true, cascade={"persist"})
      * @Groups({"offer:read", "offer:write"})
      */
     private $highlights;
