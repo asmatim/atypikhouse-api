@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
         }
 
         OfferFactory::createMany(30, function () { // note the callback - this ensures that each of the offers has a different owner
-            return ['owner' => UserFactory::random(), 'city' => CityFactory::find(['name' => 'Paris'])]; // each offer set to a random Owner from those already in the database
+            return ['owner' => UserFactory::random()]; // each offer set to a random Owner from those already in the database
         });
 
         OfferCommentFactory::createMany(70, function () {
