@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\AboutUsFactory;
+use App\Factory\ApiClientFactory;
 use App\Factory\CityFactory;
 use App\Factory\OfferCommentFactory;
 use App\Factory\OfferFactory;
@@ -17,6 +18,8 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $this->loadSQLDump($manager);
+
+        ApiClientFactory::createOne(["appId" => "nextjs", "appSecret" => "jRGxlaNOSyZpvK5fExpErAhXrQR/2jYp0gaznR/v2+I="]);
 
         AboutUsFactory::createOne();
 

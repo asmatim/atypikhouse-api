@@ -14,8 +14,9 @@ security:
         main:
             lazy: true
             provider: users_in_memory
-            #custom_authenticators:
-            #    - App\Security\AhKeycloakAuthenticator
+            pattern: ^/((api/)|(login))
+            custom_authenticators:
+                - App\Security\ApiKeyAuthenticator
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

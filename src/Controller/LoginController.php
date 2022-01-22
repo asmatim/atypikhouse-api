@@ -19,7 +19,7 @@ class LoginController extends AbstractController
         $email = $payload['email'];
         $plainPassword = $payload['password'];
 
-        $user = $userRepository->findByEmail($email);
+        $user = $userRepository->findOneBy(['email' => $email]);
 
         if (!$user) {
             return $this->json(['error' => 'Incorrect Credentials']);
