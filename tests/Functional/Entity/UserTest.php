@@ -4,17 +4,20 @@ namespace App\Tests\Functional\Entity;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\User;
+use App\Factory\ApiClientFactory;
+use App\Tests\TestUtil;
+use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
 class UserTest extends ApiTestCase
 {
-    use ResetDatabase;
+    use ResetDatabase, Factories;
 
     protected string $USER_URI = "/api/users";
 
     public function testCreateUserWithUserRole(): void
     {
-        $client = static::createClient();
+        $client = TestUtil::createClientWithCredentials();
 
         $client->request('POST', $this->USER_URI, [
             'json' =>
@@ -37,7 +40,7 @@ class UserTest extends ApiTestCase
 
     public function testUpdateUserWithUserRole(): void
     {
-        $client = static::createClient();
+        $client = TestUtil::createClientWithCredentials();
 
         $client->request('POST', $this->USER_URI, [
             'json' =>
@@ -69,5 +72,12 @@ class UserTest extends ApiTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonContains(['firstName' => 'Julien']);
+    }
+
+    // method should run before each test
+    protected function setUp(): void
+    {
+        parent::setUp();
+        ApiClientFactory::createOne(["appId" => "nextjs", "appSecret" => "jRGxlaNOSyZpvK5fExpErAhXrQR/2jYp0gaznR/v2+I="]);
     }
 }

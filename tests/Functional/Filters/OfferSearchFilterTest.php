@@ -3,12 +3,14 @@
 namespace App\Tests\Functional\Filters;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use App\Factory\ApiClientFactory;
 use App\Factory\CityFactory;
 use App\Factory\CountryFactory;
 use App\Factory\OfferFactory;
 use App\Factory\OfferTypeFactory;
 use App\Factory\RegionFactory;
 use App\Factory\UserFactory;
+use App\Tests\TestUtil;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
@@ -20,7 +22,7 @@ class OfferSearchFilterTest extends ApiTestCase
     {
         $this->createData();
 
-        $client = static::createClient();
+        $client = TestUtil::createClientWithCredentials();
 
         $offerSearchURL = "/api/offers?search=Cabane";
         $response = $client->request('GET', $offerSearchURL, [
@@ -56,5 +58,12 @@ class OfferSearchFilterTest extends ApiTestCase
 
         // create Offer 3
         OfferFactory::createOne(["owner" => UserFactory::random(), "title" => "Jolie Logement atypique à l'Oise"]);
+    }
+
+    // method should run before each test
+    protected function setUp(): void
+    {
+        parent::setUp();
+        ApiClientFactory::createOne(["appId" => "nextjs", "appSecret" => "jRGxlaNOSyZpvK5fExpErAhXrQR/2jYp0gaznR/v2+I="]);
     }
 }

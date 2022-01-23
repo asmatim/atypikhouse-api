@@ -5,6 +5,7 @@ namespace App\Tests\Functional\Validator;
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 use App\Entity\Offer;
 use App\Entity\User;
+use App\Factory\ApiClientFactory;
 use App\Factory\CityFactory;
 use App\Factory\CountryFactory;
 use App\Factory\OfferFactory;
@@ -12,6 +13,7 @@ use App\Factory\OfferTypeFactory;
 use App\Factory\RegionFactory;
 use App\Factory\ReservationFactory;
 use App\Factory\UserFactory;
+use App\Tests\TestUtil;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
@@ -28,7 +30,7 @@ class CanPostCommentValidatorTest extends ApiTestCase
         $offer1IRI = $this->findIriBy(Offer::class, ["title" => "Offre1"]);
         $clientIRI = $this->findIriBy(User::class, ["email" => "test.res@domain.com"]);
 
-        $client = static::createClient();
+        $client = TestUtil::createClientWithCredentials();
 
         $client->request('POST', $this->offerCommentsURI, [
             'json' =>
@@ -50,7 +52,7 @@ class CanPostCommentValidatorTest extends ApiTestCase
         $offer2IRI = $this->findIriBy(Offer::class, ["title" => "Offre2"]);
         $clientIRI = $this->findIriBy(User::class, ["email" => "test.res@domain.com"]);
 
-        $client = static::createClient();
+        $client = TestUtil::createClientWithCredentials();
 
         $client->request('POST', $this->offerCommentsURI, [
             'json' =>
@@ -90,5 +92,12 @@ class CanPostCommentValidatorTest extends ApiTestCase
                 "client" => $clientUserForReservation, "offer" => $offer1
             ]
         );
+    }
+
+    // method should run before each test
+    protected function setUp(): void
+    {
+        parent::setUp();
+        ApiClientFactory::createOne(["appId" => "nextjs", "appSecret" => "jRGxlaNOSyZpvK5fExpErAhXrQR/2jYp0gaznR/v2+I="]);
     }
 }
