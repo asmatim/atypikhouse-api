@@ -3,6 +3,7 @@
 namespace App\Tests\Functional\Filters;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use App\Factory\ApiClientFactory;
 use App\Factory\CityFactory;
 use App\Factory\CountryFactory;
 use App\Factory\OfferFactory;
@@ -12,6 +13,7 @@ use App\Factory\ReservationFactory;
 use App\Factory\UserFactory;
 use DateTime;
 use DateTimeZone;
+use App\Tests\TestUtil;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
@@ -23,7 +25,7 @@ class OfferAvailabilityFilterTest extends ApiTestCase
     {
         $this->createData();
 
-        $client = static::createClient();
+        $client = TestUtil::createClientWithCredentials();
 
         $offerSearchURL = "/api/offers?startDate=2022-07-01&endDate=2022-07-05";
         $response = $client->request('GET', $offerSearchURL, [
@@ -46,7 +48,7 @@ class OfferAvailabilityFilterTest extends ApiTestCase
     {
         $this->createData();
 
-        $client = static::createClient();
+        $client = TestUtil::createClientWithCredentials();
 
         $offerSearchURL = "/api/offers?startDate=2022-06-02&endDate=2022-06-09";
         $response = $client->request('GET', $offerSearchURL, [
@@ -95,5 +97,12 @@ class OfferAvailabilityFilterTest extends ApiTestCase
         $reservationEndDate->modify("+11 hours");
 
         ReservationFactory::createOne(["client" => $clientUserWithReservation, "offer" => $offer1, "startDate" => $reservationStartDate, "endDate" => $reservationEndDate]);
+    }
+
+    // method should run before each test
+    protected function setUp(): void
+    {
+        parent::setUp();
+        ApiClientFactory::createOne(["appId" => "nextjs", "appSecret" => "jRGxlaNOSyZpvK5fExpErAhXrQR/2jYp0gaznR/v2+I="]);
     }
 }
