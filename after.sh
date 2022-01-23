@@ -26,29 +26,6 @@ wget https://get.symfony.com/cli/installer -O - | bash
 export PATH="$HOME/.symfony/bin:$PATH"
 
 
-
-# Install Keycloak and dependencies
-sudo apt-get install -y openjdk-8-jre
-if [ -d "keycloak-15.0.2" ] 
-then
-    echo "Delete existing keycloak installation"
-    rm -R keycloak-15.0.2
-fi
-
-if [ ! -f "keycloak-15.0.2.zip" ] 
-then
-    echo "Download keycloak 15.0.2 archive"
-    wget https://github.com/keycloak/keycloak/releases/download/15.0.2/keycloak-15.0.2.zip -O keycloak-15.0.2.zip
-fi
-
-echo "Extracting keycloak binaries..." 
-unzip -q keycloak-15.0.2.zip
-# copy custom themes
-echo " copying custom themes"
-cp -r ./atypikhouse-api/data/keycloak-themes/. ./keycloak-15.0.2/themes
-
-nohup ./keycloak-15.0.2/bin/standalone.sh -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file="atypikhouse-api/data/keycloak-config.json" &>/dev/null &
-
 # Create Database and schema
 cd ~/atypikhouse-api
 symfony console doctrine:database:drop --force
@@ -56,7 +33,5 @@ symfony console doctrine:database:create
 symfony console doctrine:schema:create
 php bin/console api:openapi:export --output=swagger_docs.json
 
-# Wait for keycloak to start and import config
-sleep 120
 echo "Loading data fixtures"
 symfony console doctrine:fixtures:load -n
