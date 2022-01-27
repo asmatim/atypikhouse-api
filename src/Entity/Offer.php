@@ -26,7 +26,7 @@ use App\Validator\OfferDynamicProperty;
     denormalizationContext: ['groups' => ['offer:write']],
     paginationItemsPerPage: 9
 )]
-#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact", "status" => "exact"])]
+#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact", "status" => "exact", "owner.id" => "exact"])]
 #[ApiFilter(OfferSearchFilter::class)]
 #[ApiFilter(OfferAvailabilityFilter::class)]
 #[ApiFilter(RangeFilter::class, properties: ['capacity', 'unitPrice'])]
@@ -155,7 +155,7 @@ class Offer
     private $dynamicPropertyValues;
 
     /**
-     * @ORM\Column(type=OfferStatus::class, length=255, nullable=true)
+     * @ORM\Column(type=OfferStatus::class, length=255)
      * @Groups({"offer:read","offer:write"})
      */
     private $status = 'unpublished';
