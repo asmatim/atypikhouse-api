@@ -1,0 +1,4 @@
+services:
+    validator.alias:
+        alias: validator
+        public: true
