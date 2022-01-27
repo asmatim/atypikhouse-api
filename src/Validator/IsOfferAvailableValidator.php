@@ -24,7 +24,7 @@ class IsOfferAvailableValidator extends ConstraintValidator
             return;
         }
 
-        $reservations =  $this->reservationRepository->findCollindingReservations($entity->getStartDate(), $entity->getEndDate(), $entity->getOffer());
+        $reservations =  $this->reservationRepository->findCollindingReservations($entity->getId(), $entity->getStartDate(), $entity->getEndDate(), $entity->getOffer());
 
         if ($reservations === null || empty($reservations)) {
             return;

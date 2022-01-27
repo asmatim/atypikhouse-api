@@ -103,17 +103,20 @@ class Reservation
     private $totalPrice;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $paymentDate;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $cancelDate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"reservation:read", "reservation:write"})
      */
     private $paymentId;
 
@@ -230,12 +233,12 @@ class Reservation
         return $this;
     }
 
-    public function getPaymentDate(): ?string
+    public function getPaymentDate(): ?\DateTimeInterface
     {
         return $this->paymentDate;
     }
 
-    public function setPaymentDate(?string $paymentDate): self
+    public function setPaymentDate(?\DateTimeInterface $paymentDate): self
     {
         $this->paymentDate = $paymentDate;
 

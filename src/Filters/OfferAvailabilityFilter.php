@@ -6,6 +6,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use DateTime;
 use DateTimeZone;
+use App\Enum\ReservationStatus;
 use Doctrine\ORM\QueryBuilder;
 
 class OfferAvailabilityFilter extends AbstractFilter
@@ -27,13 +28,18 @@ class OfferAvailabilityFilter extends AbstractFilter
                         OR (:endDate BETWEEN sr.startDate AND sr.endDate) 
                         OR (:startDate < sr.startDate AND :endDate > sr.endDate)
                     '
+                )->andWhere(
+                    ' ( sr.status != :statusPending AND sr.status != :statusCanceled )  '
                 );
+
             //dd($sqb->getQuery()->getSQL());
             // set Start Date to 4pm (16h UTC)
             $startDate = new DateTime($value, new DateTimeZone('UTC'));
             $startDate->modify("+16 hours");
             $queryBuilder->andWhere($queryBuilder->expr()->not($queryBuilder->expr()->exists($sqb->getDQL())))
-                ->setParameter('startDate', $startDate);
+                ->setParameter('startDate', $startDate)
+                ->setParameter("statusPending", ReservationStatus::PENDING())
+                ->setParameter("statusCanceled", ReservationStatus::CANCELED());
         }
 
         if ($property === 'endDate') {
@@ -43,8 +49,6 @@ class OfferAvailabilityFilter extends AbstractFilter
             $queryBuilder->setParameter('endDate', $endDate);
         }
 
-        // TODO
-        // handle reservation status in condition
     }
 
     public function getDescription(string $resourceClass): array
