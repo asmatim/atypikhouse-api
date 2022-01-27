@@ -102,6 +102,21 @@ class Reservation
      */
     private $totalPrice;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $paymentDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $cancelDate;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paymentId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -211,6 +226,42 @@ class Reservation
     public function setTotalPrice(?int $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getPaymentDate(): ?string
+    {
+        return $this->paymentDate;
+    }
+
+    public function setPaymentDate(?string $paymentDate): self
+    {
+        $this->paymentDate = $paymentDate;
+
+        return $this;
+    }
+
+    public function getCancelDate(): ?\DateTimeInterface
+    {
+        return $this->cancelDate;
+    }
+
+    public function setCancelDate(?\DateTimeInterface $cancelDate): self
+    {
+        $this->cancelDate = $cancelDate;
+
+        return $this;
+    }
+
+    public function getPaymentId(): ?string
+    {
+        return $this->paymentId;
+    }
+
+    public function setPaymentId(?string $paymentId): self
+    {
+        $this->paymentId = $paymentId;
 
         return $this;
     }
