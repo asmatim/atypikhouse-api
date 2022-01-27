@@ -60,7 +60,7 @@ class OfferType
     private $isTrending = false;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      * @Groups({"offerType:read","offerType:write"})
      */
     private $imageUrl;
