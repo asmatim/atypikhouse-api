@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,15 +18,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiResource(
     normalizationContext: ['groups' => ['region:read']],
     denormalizationContext: ['groups' => ['region:write']],
+    attributes: ["pagination_client_enabled" => true],
     paginationItemsPerPage: 9
 )]
+#[ApiFilter(SearchFilter::class, properties: ["country.name" => "exact"])]
 class Region
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"region:read"})
+     * @Groups({"region:read", "address:read"})
      */
     private $id;
 

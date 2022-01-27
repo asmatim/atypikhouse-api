@@ -2,19 +2,25 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\DynamicPropertyValueRepository;
+use App\Validator\ValidDynamicPropertyValue;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DynamicPropertyValueRepository::class)
+ * @ValidDynamicPropertyValue
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['dynamicPropertyValue:read']],
     denormalizationContext: ['groups' => ['dynamicPropertyValue:write']],
+    attributes: ["pagination_client_enabled" => true],
 )]
+#[ApiFilter(SearchFilter::class, properties: ["offer.id" => "exact"])]
 class DynamicPropertyValue
 {
     /**
@@ -28,7 +34,7 @@ class DynamicPropertyValue
     /**
      * @ORM\ManyToOne(targetEntity=Offer::class, inversedBy="dynamicPropertyValues")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"dynamicPropertyValue:read","dynamicPropertyValue:write"})
+     * @Groups({"dynamicPropertyValue:read"})
      * @Assert\NotNull
      */
     private $offer;
@@ -36,16 +42,14 @@ class DynamicPropertyValue
     /**
      * @ORM\ManyToOne(targetEntity=DynamicProperty::class)
      * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Groups({"dynamicPropertyValue:read","dynamicPropertyValue:write"})
+     * @Groups({"dynamicPropertyValue:read", "offer:write"})
      * @Assert\NotNull
      */
     private $dynamicProperty;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"dynamicPropertyValue:read","dynamicPropertyValue:write"})
-     * @Assert\NotNull
-     * @Assert\NotBlank
+     * @Groups({"dynamicPropertyValue:read", "offer:write"})
      */
     private $value;
 

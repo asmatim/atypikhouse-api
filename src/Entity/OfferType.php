@@ -21,6 +21,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[ApiResource(
     normalizationContext: ['groups' => ['offerType:read']],
     denormalizationContext: ['groups' => ['offerType:write']],
+    attributes: ["pagination_client_enabled" => true],
     paginationItemsPerPage: 9
 )]
 class OfferType
@@ -59,7 +60,7 @@ class OfferType
     private $isTrending = false;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      * @Groups({"offerType:read","offerType:write"})
      */
     private $imageUrl;

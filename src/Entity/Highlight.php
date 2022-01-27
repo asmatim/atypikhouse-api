@@ -21,13 +21,13 @@ class Highlight
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"highlight:read"})
+     * @Groups({"highlight:read", "offer:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"highlight:read","highlight:write","offer:read"})
+     * @Groups({"highlight:read","highlight:write","offer:read", "offer:write"})
      * @Assert\NotNull
      * @Assert\NotBlank
      */

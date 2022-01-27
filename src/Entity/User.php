@@ -53,16 +53,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"user:read","user:write","offerComment:read"})
+     * @Assert\Regex(pattern="/^([A-zÀ-ÿ\s\-']+)$/")
      * @Assert\NotNull
-     * @Assert\NotBlank
+     * @Assert\NotBlank(allowNull=true)
+     * @Assert\Length(min=1, max=100)
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=100)
      * @Groups({"user:read","user:write","offerComment:read"})
+     * @Assert\Regex(pattern="/^([A-zÀ-ÿ\s\-']+)$/")
      * @Assert\NotNull
-     * @Assert\NotBlank
+     * @Assert\NotBlank(allowNull=true)
+     * @Assert\Length(min=1, max=100)
      */
     private $lastName;
 
@@ -82,7 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("user:write")
      * @SerializedName("password")
      * @Assert\NotNull(groups={"postValidation"})
-     * @Assert\NotBlank(groups={"postValidation"})
+     * @Assert\NotBlank(allowNull=true, groups={"postValidation"})
      * @Assert\Length(min = 6)
      */
     private $plainPassword;
@@ -109,6 +113,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex(pattern="/^(\+|00)[0-9]{1,14}$/")
      * @Groups({"user:read","user:write"})
      */
     private $phoneNumber;
@@ -117,7 +122,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"user:read","user:write"})
      * @Assert\NotNull
-     * @Assert\NotBlank
+     * @Assert\NotBlank(allowNull=true)
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )
@@ -125,8 +130,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
+     * @ORM\Column(type="json")
      * @Groups({"user:read","user:write"})
+     * @Assert\NotNull
      */
     private $roles = [];
 

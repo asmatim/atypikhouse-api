@@ -15,16 +15,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 use App\Enum\OfferStatus;
+use App\Validator\OfferDynamicProperty;
 
 /**
  * @ORM\Entity(repositoryClass=OfferRepository::class)
+ * @OfferDynamicProperty
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['offer:read']],
     denormalizationContext: ['groups' => ['offer:write']],
     paginationItemsPerPage: 9
 )]
-#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact", "status" => "exact"])]
+#[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact", "status" => "exact", "owner.id" => "exact"])]
 #[ApiFilter(OfferSearchFilter::class)]
 #[ApiFilter(OfferAvailabilityFilter::class)]
 #[ApiFilter(RangeFilter::class, properties: ['capacity', 'unitPrice'])]
@@ -99,14 +101,16 @@ class Offer
     private $media;
 
     /**
-     * @ORM\OneToMany(targetEntity=Highlight::class, mappedBy="offer", orphanRemoval=true)
-     * @Groups({"offer:read"})
+     * @ORM\OneToMany(targetEntity=Highlight::class, mappedBy="offer", orphanRemoval=true, cascade={"persist"})
+     * @Groups({"offer:read", "offer:write"})
      */
     private $highlights;
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="offer", cascade={"persist", "remove"})
-     * @Groups({"offer:read"})
+     * @Groups({"offer:read", "offer:write"})
+     * @Assert\NotNull
+     * @Assert\Valid
      */
     private $address;
 
@@ -117,7 +121,7 @@ class Offer
 
     /**
      * @ORM\ManyToMany(targetEntity=Equipment::class, mappedBy="offers")
-     * @Groups({"offer:read"})
+     * @Groups({"offer:read", "offer:write"})
      */
     private $equipments;
 
@@ -144,13 +148,14 @@ class Offer
     private $owner;
 
     /**
-     * @ORM\OneToMany(targetEntity=DynamicPropertyValue::class, mappedBy="offer")
-     * @Groups({"offer:read"})
+     * @ORM\OneToMany(targetEntity=DynamicPropertyValue::class, mappedBy="offer", cascade={"persist", "remove"})
+     * @Groups({"offer:read", "offer:write"})
+     * @Assert\Valid
      */
     private $dynamicPropertyValues;
 
     /**
-     * @ORM\Column(type=OfferStatus::class, length=255, nullable=true)
+     * @ORM\Column(type=OfferStatus::class, length=255)
      * @Groups({"offer:read","offer:write"})
      */
     private $status = 'unpublished';
