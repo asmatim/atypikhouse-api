@@ -7,6 +7,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class OfferDynamicPropertyValidator extends ConstraintValidator
 {
+    // $entity contains Offer
     public function validate($entity, Constraint $constraint)
     {
         if ($entity === null || empty($entity)) {
@@ -20,6 +21,11 @@ class OfferDynamicPropertyValidator extends ConstraintValidator
     private function offerContainsOnlyCompatibleDynamicProps($entity, Constraint $constraint)
     {
         $offer_offerType = $entity->getOfferType();
+        if ($offer_offerType == null) {
+            // nothing to validate offerType not available
+            return;
+        }
+
         $dp_values = $entity->getDynamicPropertyValues();
 
         $offer_dynamicProperties = array();
@@ -45,6 +51,11 @@ class OfferDynamicPropertyValidator extends ConstraintValidator
     private function offerContainsAllMandatoryDynamicProps($entity, Constraint $constraint)
     {
         $offer_offerType = $entity->getOfferType();
+        if ($offer_offerType == null) {
+            // nothing to validate offerType not available
+            return;
+        }
+
         $offerType_dProperties = $offer_offerType->getDynamicProperties();
 
         $dp_values = $entity->getDynamicPropertyValues();
