@@ -140,7 +140,7 @@ class ReservationRepositoryTest extends KernelTestCase
         $reservation2EndDate->modify("+11 hours");
 
         // Search if there are any reservation in conflict with given startDate endDate and offer
-        $results = $reservationRepository->findCollindingReservations($reservation2StartDate, $reservation2EndDate, $offer->object());
+        $results = $reservationRepository->findCollindingReservations(null, $reservation2StartDate, $reservation2EndDate, $offer->object());
 
         $this->assertNotEmpty($results, "A reservation should exist for the offer");
         $this->assertCount(1, $results, "The results counts should be one.");
@@ -191,7 +191,7 @@ class ReservationRepositoryTest extends KernelTestCase
         $reservation2EndDate->modify("+11 hours");
 
         // Search if there are any reservation in conflict with given startDate endDate and offer
-        $results = $reservationRepository->findCollindingReservations($reservation2StartDate, $reservation2EndDate, $offer->object());
+        $results = $reservationRepository->findCollindingReservations(null, $reservation2StartDate, $reservation2EndDate, $offer->object());
 
         $this->assertEmpty($results, "No reservation should be in conflict. Results should be empty!");
 

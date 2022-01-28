@@ -54,12 +54,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -97,12 +97,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -138,12 +138,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -181,12 +181,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -222,12 +222,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -265,12 +265,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -306,12 +306,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -351,12 +351,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -391,12 +391,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -432,12 +432,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -476,12 +476,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -516,12 +516,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -557,12 +557,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -601,12 +601,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -641,12 +641,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -682,12 +682,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -725,12 +725,12 @@ class OfferTest extends ApiTestCase
                     "postalCode" => "91137"
                 ],
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -766,12 +766,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => null,
                 "owner" => $ownerIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -809,12 +809,12 @@ class OfferTest extends ApiTestCase
                     "postalCode" => "91137"
                 ],
                 "offerType" => $offerTypeIRI,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -850,12 +850,12 @@ class OfferTest extends ApiTestCase
                 ],
                 "offerType" => $offerTypeIRI,
                 "owner" => null,
-                /*"dynamicPropertyValues" => [
+                "dynamicPropertyValues" => [
                     [
                         "dynamicProperty" => $dynamicPropertyIRI,
                         "value" => "2"
                     ]
-                ],*/
+                ],
                 "status" => "unpublished"
             ],
         ]);
@@ -876,7 +876,7 @@ class OfferTest extends ApiTestCase
         // create offerType
         OfferTypeFactory::createOne(["name" => "Cabanes"]);
         // create dynamicProperty
-        // DynamicPropertyFactory::createOne(["name" => "dp1", "type" => DynamicPropertyType::TEXT(), "offerType" => OfferTypeFactory::random()]);
+        DynamicPropertyFactory::createOne(["name" => "dp1", "type" => DynamicPropertyType::TEXT(), "offerType" => OfferTypeFactory::random()]);
         // create One country, region, city for tests
         CountryFactory::createOne(['name' => 'France']);
         RegionFactory::createOne(['name' => 'Oise', 'country' => CountryFactory::random()]);

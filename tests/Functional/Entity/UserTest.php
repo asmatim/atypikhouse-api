@@ -26,7 +26,7 @@ class UserTest extends ApiTestCase
                 "lastName" => "Marchand",
                 "birthdate" => "1984-04-16",
                 "password" => "azerty",
-                "phoneNumber" => "0611223344",
+                "phoneNumber" => "0033611223344",
                 "email" => "test.user1@example.com",
                 "roles" => [
                     "USER_ROLE"
@@ -49,7 +49,7 @@ class UserTest extends ApiTestCase
                 "lastName" => "Marchand",
                 "birthdate" => "1984-04-16",
                 "password" => "azerty",
-                "phoneNumber" => "0611223344",
+                "phoneNumber" => "+33611223344",
                 "email" => "test.user2@example.com",
                 "roles" => [
                     "USER_ROLE"
