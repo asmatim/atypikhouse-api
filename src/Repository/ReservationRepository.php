@@ -40,7 +40,7 @@ class ReservationRepository extends ServiceEntityRepository
      */
     public function findCollindingReservations($currentReservationId, $startDate, $endDate, $offer)
     {
-        return $this->createQueryBuilder('r')
+        $queryBuilder = $this->createQueryBuilder('r')
             ->where('(r.offer = :offer) 
                     AND
                         (
@@ -48,17 +48,21 @@ class ReservationRepository extends ServiceEntityRepository
                             OR (:endDate BETWEEN r.startDate AND r.endDate) 
                             OR (:startDate < r.startDate AND :endDate > r.endDate)
                         )
-                    AND r.status != :statusPending 
-                    AND r.status != :statusCanceled 
-                    AND r.id != :currentReservationId    
+                    AND r.status != :statusPending
+                    AND r.status != :statusCanceled
                     ')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('offer', $offer)
             ->setParameter('statusPending', ReservationStatus::PENDING())
-            ->setParameter('statusCanceled', ReservationStatus::CANCELED())
-            ->setParameter('currentReservationId', $currentReservationId)
-            ->getQuery()
+            ->setParameter('statusCanceled', ReservationStatus::CANCELED());
+
+        if ($currentReservationId != null && is_numeric($currentReservationId)) {
+            $queryBuilder->andWhere('r.id != :currentReservationId')
+                ->setParameter('currentReservationId', $currentReservationId);
+        }
+
+        return $queryBuilder->getQuery()
             ->getResult();
     }
 
