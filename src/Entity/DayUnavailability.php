@@ -29,12 +29,12 @@ class DayUnavailability extends OfferUnavailability
 
     public function getValue(): ?DayOfWeek
     {
-        return DayOfWeek::from($this->value);
+        return new DayOfWeek($this->value);
     }
 
     public function setValue(string $value): self
     {
-        $this->value = DayOfWeek::from($value);
+        $this->value = new DayOfWeek($value);
         return $this;
     }
 }

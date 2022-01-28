@@ -92,12 +92,12 @@ class DynamicProperty
 
     public function getType(): ?DynamicPropertyType
     {
-        return DynamicPropertyType::from($this->type);
+        return new DynamicPropertyType($this->type);
     }
 
     public function setType(string $type): self
     {
-        $this->type = DynamicPropertyType::from($type);
+        $this->type = new DynamicPropertyType($type);
 
         return $this;
     }

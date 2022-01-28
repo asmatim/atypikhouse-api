@@ -211,12 +211,12 @@ class Reservation
 
     public function getStatus(): ?ReservationStatus
     {
-        return ReservationStatus::from($this->status);
+        return new ReservationStatus($this->status);
     }
 
     public function setStatus(?string $status): self
     {
-        $this->status = ReservationStatus::from($status);
+        $this->status = new ReservationStatus($status);
 
         return $this;
     }
