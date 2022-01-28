@@ -3,6 +3,7 @@
 namespace App\Tests\Functional\Filters;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use App\Enum\ReservationStatus;
 use App\Factory\ApiClientFactory;
 use App\Factory\CityFactory;
 use App\Factory\CountryFactory;
@@ -60,7 +61,7 @@ class OfferAvailabilityFilterTest extends ApiTestCase
 
         $this->assertResponseIsSuccessful();
 
-        // check the results contains the 2 offers all available the 3rd one is reserverd already during the provided dates
+        // check the results contains the 2 offers available, the 3rd one is reserved already during the provided dates
         $this->assertJsonContains([
             ["title" => "Jolie Cabane à l'Oise"], ["title" => "Jolie Logement atypique à l'Oise"]
         ]);
@@ -96,7 +97,7 @@ class OfferAvailabilityFilterTest extends ApiTestCase
         $reservationEndDate = new DateTime('2022-06-11', new DateTimeZone('UTC'));
         $reservationEndDate->modify("+11 hours");
 
-        ReservationFactory::createOne(["client" => $clientUserWithReservation, "offer" => $offer1, "startDate" => $reservationStartDate, "endDate" => $reservationEndDate]);
+        ReservationFactory::createOne(["client" => $clientUserWithReservation, "offer" => $offer1, "startDate" => $reservationStartDate, "endDate" => $reservationEndDate, "status" => ReservationStatus::COMPLETED()]);
     }
 
     // method should run before each test
