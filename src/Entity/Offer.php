@@ -493,12 +493,12 @@ class Offer
 
     public function getStatus(): ?OfferStatus
     {
-        return OfferStatus::from($this->status);
+        return new OfferStatus($this->status);
     }
 
     public function setStatus(?string $status): self
     {
-        $this->status = OfferStatus::from($status);
+        $this->status = new OfferStatus($status);
 
         return $this;
     }
