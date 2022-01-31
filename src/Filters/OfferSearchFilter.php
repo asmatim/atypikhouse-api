@@ -18,7 +18,7 @@ class OfferSearchFilter extends AbstractFilter
             ->join('ad.city', 'ct')
             ->join('ct.region', 'reg')
             ->join('reg.country', 'cn')
-            ->andWhere(sprintf('%s.title LIKE :search OR ct.name LIKE :search OR cn.name LIKE :search', $alias))
+            ->andWhere(sprintf('lower(%s.title) LIKE lower(:search) OR lower(ct.name) LIKE lower(:search) OR lower(cn.name) LIKE lower(:search)', $alias))
             ->setParameter('search', '%' . $value . '%');
     }
 
