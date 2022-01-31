@@ -24,7 +24,7 @@ use App\Validator\IsOfferAvailable;
     denormalizationContext: ['groups' => ['reservation:write']],
     paginationItemsPerPage: 9
 )]
-#[ApiFilter(SearchFilter::class, properties: ['status' => 'exact' , 'offer' => 'exact' , 'client' => 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['status' => 'exact', 'offer' => 'exact', 'client' => 'exact', 'offer.owner.id' => 'exact'])]
 #[ApiFilter(DateFilter::class, properties: ['endDate'])]
 class Reservation
 {
