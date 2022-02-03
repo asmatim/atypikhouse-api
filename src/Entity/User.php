@@ -55,8 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"user:read","user:write","offerComment:read"})
      * @Assert\Regex(pattern="/^([A-zÀ-ÿ\s\-']+)$/")
      * @Assert\NotNull
-     * @Assert\NotBlank(allowNull=true)
-     * @Assert\Length(min=1, max=100)
+     * @Assert\Length(min=3, max=100)
      */
     private $firstName;
 
@@ -65,8 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups({"user:read","user:write","offerComment:read"})
      * @Assert\Regex(pattern="/^([A-zÀ-ÿ\s\-']+)$/")
      * @Assert\NotNull
-     * @Assert\NotBlank(allowNull=true)
-     * @Assert\Length(min=1, max=100)
+     * @Assert\Length(min=3, max=100)
      */
     private $lastName;
 
@@ -86,7 +84,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Groups("user:write")
      * @SerializedName("password")
      * @Assert\NotNull(groups={"postValidation"})
-     * @Assert\NotBlank(allowNull=true, groups={"postValidation"})
      * @Assert\Length(min = 6)
      */
     private $plainPassword;
@@ -122,7 +119,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"user:read","user:write"})
      * @Assert\NotNull
-     * @Assert\NotBlank(allowNull=true)
+     * @Assert\NotBlank
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )

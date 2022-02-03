@@ -43,6 +43,8 @@ class Offer
     /**
      * @ORM\Column(type="string", length=120)
      * @Groups({"offer:read","offer:write" ,"favorites:read","reservation:read"})
+     * @Assert\Regex(pattern="/^([A-zÀ-ÿ\s\-']+)$/")
+     * @Assert\Length(min=10, max=50)
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -51,6 +53,7 @@ class Offer
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
+     * @Assert\Length(min=40, max=500)
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -59,6 +62,7 @@ class Offer
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
+     * @Assert\Length(min=80, max=2500)
      * @Assert\NotNull
      * @Assert\NotBlank
      */
@@ -76,7 +80,7 @@ class Offer
      * @ORM\Column(type="integer", nullable=true)
      * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
      * @Assert\NotNull
-     * @Assert\PositiveOrZero
+     * @Assert\Positive
      */
     private $nbBeds;
 
@@ -103,6 +107,7 @@ class Offer
     /**
      * @ORM\OneToMany(targetEntity=Highlight::class, mappedBy="offer", orphanRemoval=true, cascade={"persist"})
      * @Groups({"offer:read", "offer:write"})
+     * @Assert\Valid
      */
     private $highlights;
 

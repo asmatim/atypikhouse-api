@@ -56,8 +56,10 @@ class Address
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"offer:write", "address:read"})
+     * @Assert\Regex(pattern="/^([A-zÀ-ÿ0-9\s\-']+)$/")
      * @Assert\NotNull
      * @Assert\NotBlank
+     * @Assert\Length(min=5, max=60)
      */
     private $line1;
 
@@ -66,6 +68,7 @@ class Address
      * @Groups({"offer:write", "address:read"})
      * @Assert\NotNull
      * @Assert\NotBlank
+     * @Assert\Regex(pattern="/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/")
      */
     private $postalCode;
 
