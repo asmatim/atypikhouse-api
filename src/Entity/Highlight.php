@@ -29,7 +29,7 @@ class Highlight
      * @ORM\Column(type="string", length=255)
      * @Groups({"highlight:read","highlight:write","offer:read", "offer:write"})
      * @Assert\NotNull
-     * @Assert\NotBlank
+     * @Assert\Length(min=10, max=100)
      */
     private $content;
 
