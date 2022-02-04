@@ -89,8 +89,9 @@ class DynamicPropertyValue
 
     public function setValue(string $value): self
     {
-        $this->value = $value;
-
+        if ($value !== null) {
+            $this->value = trim($value);
+        }
         return $this;
     }
 }

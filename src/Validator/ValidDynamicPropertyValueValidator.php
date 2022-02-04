@@ -26,6 +26,10 @@ class ValidDynamicPropertyValueValidator extends ConstraintValidator
         $dpType = $entity->getDynamicProperty()->getType();
         $dpValue = $entity->getValue();
 
+        if (null === $dpValue || empty($dpValue)) {
+            return;
+        }
+
         if (DynamicPropertyType::NUMERICAL() == $dpType) {
             if (!is_numeric($dpValue)) {
                 $this->context->buildViolation($constraint->messageType)
