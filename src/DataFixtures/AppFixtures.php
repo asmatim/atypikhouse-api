@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
         });
 
         OfferCommentFactory::createMany(70, function () {
-            return ['client' => UserFactory::random(), 'offer' => OfferFactory::random()];
+            return ['client' => UserFactory::random(), 'offer' => OfferFactory::random(), 'status'=>'approved'];
         });
     }
 

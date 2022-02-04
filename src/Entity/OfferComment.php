@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use App\Validator\CanPostComment;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use App\Enum\OfferCommentStatus;
 
 /**
  * @ORM\Entity(repositoryClass=OfferCommentRepository::class)
@@ -20,7 +21,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
     denormalizationContext: ['groups' => ['offerComment:write']],
     paginationItemsPerPage: 9
 )]
-#[ApiFilter(SearchFilter::class, properties: ["offer" => "exact" ,"client" => "exact"])]
+#[ApiFilter(SearchFilter::class, properties: ["offer" => "exact" ,"client" => "exact","status"=>"exact"])]
 class OfferComment
 {
     /**
@@ -54,6 +55,12 @@ class OfferComment
      * @Assert\NotNull
      */
     private $client;
+
+    /**
+     * @ORM\Column(type="App\Enum\OfferCommentStatus")
+     * @Groups({"offerComment:read","offerComment:write"})
+     */
+    private $status  = 'pending';
 
     public function getId(): ?int
     {
@@ -92,6 +99,18 @@ class OfferComment
     public function setClient(?User $client): self
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getStatus():?OfferCommentStatus
+    {
+        return new OfferCommentStatus($this->status);
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = new OfferCommentStatus($status);
 
         return $this;
     }
