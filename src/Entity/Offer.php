@@ -43,19 +43,19 @@ class Offer
     /**
      * @ORM\Column(type="string", length=120)
      * @Groups({"offer:read","offer:write" ,"favorites:read","reservation:read"})
-     * @Assert\Regex(pattern="/^([A-zÀ-ÿ\s\-']+)$/")
      * @Assert\Length(min=10, max=50)
      * @Assert\NotNull
      * @Assert\NotBlank
+     * @Assert\Regex(pattern="/^([A-zÀ-ÿ\s\-']+)$/")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"offer:read","offer:write" , "favorites:read","reservation:read"})
-     * @Assert\Length(min=40, max=500)
      * @Assert\NotNull
      * @Assert\NotBlank
+     * @Assert\Length(min=40, max=500)
      */
     private $summary;
 

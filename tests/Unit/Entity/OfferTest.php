@@ -148,7 +148,48 @@ class OfferTest extends ApiTestCase
             ],
         ]);
 
-        $this->assertJsonContains(["hydra:description" => "title: This value should not be blank."]);
+        $this->assertJsonContains(["hydra:description" => "title: This value is too short. It should have 10 characters or more.\ntitle: This value should not be blank."]);
+    }
+
+    public function testInvalildOfferTitleTooShort(): void
+    {
+        $client = TestUtil::createClientWithCredentials();
+
+        $this->createData();
+
+        $cityIRI = $this->findIriBy(City::class, ["name" => "La Neuville-en-Hez"]);
+        $offerTypeIRI = $this->findIriBy(OfferType::class, ["name" => "Cabanes"]);
+        $ownerIRI = $this->findIriBy(User::class, ["email" => "test.user1@example.com"]);
+        $dynamicPropertyIRI = $this->findIriBy(DynamicProperty::class, ["name" => "dp1"]);
+
+        // create offer
+        $client->request('POST', $this->OFFER_URI, [
+            'json' =>
+            [
+                "title" => "aa",
+                "summary" => "La Cabane des champs est idéale pour un séjour à deux. Vous pourrez profiter du calme des lieux et de la nature, entouré des chats, poules et de la famille cochons d'inde du domaine.",
+                "description" => "La Cabane des champs est idéale pour un séjour à deux. Vous pourrez profiter du calme des lieux et de la nature, entouré des chats, poules et de la famille cochons d'inde du domaine.",
+                "capacity" => 2,
+                "nbBeds" => 2,
+                "unitPrice" => 89,
+                "address" => [
+                    "city" =>  $cityIRI,
+                    "line1" => "Rue du matin",
+                    "postalCode" => "91137"
+                ],
+                "offerType" => $offerTypeIRI,
+                "owner" => $ownerIRI,
+                "dynamicPropertyValues" => [
+                    [
+                        "dynamicProperty" => $dynamicPropertyIRI,
+                        "value" => "2"
+                    ]
+                ],
+                "status" => "unpublished"
+            ],
+        ]);
+
+        $this->assertJsonContains(["hydra:description" => "title: This value is too short. It should have 10 characters or more."]);
     }
 
     /**
@@ -232,7 +273,48 @@ class OfferTest extends ApiTestCase
             ],
         ]);
 
-        $this->assertJsonContains(["hydra:description" => "summary: This value should not be blank."]);
+        $this->assertJsonContains(["hydra:description" => "summary: This value should not be blank.\nsummary: This value is too short. It should have 40 characters or more."]);
+    }
+
+    public function testInvalildOfferSummaryTooShort(): void
+    {
+        $client = TestUtil::createClientWithCredentials();
+
+        $this->createData();
+
+        $cityIRI = $this->findIriBy(City::class, ["name" => "La Neuville-en-Hez"]);
+        $offerTypeIRI = $this->findIriBy(OfferType::class, ["name" => "Cabanes"]);
+        $ownerIRI = $this->findIriBy(User::class, ["email" => "test.user1@example.com"]);
+        $dynamicPropertyIRI = $this->findIriBy(DynamicProperty::class, ["name" => "dp1"]);
+
+        // create offer
+        $client->request('POST', $this->OFFER_URI, [
+            'json' =>
+            [
+                "title" => "Cabane des Champs",
+                "summary" => "La Cabane des champs",
+                "description" => "La Cabane des champs est idéale pour un séjour à deux. Vous pourrez profiter du calme des lieux et de la nature, entouré des chats, poules et de la famille cochons d'inde du domaine.",
+                "capacity" => 2,
+                "nbBeds" => 2,
+                "unitPrice" => 89,
+                "address" => [
+                    "city" =>  $cityIRI,
+                    "line1" => "Rue du matin",
+                    "postalCode" => "91137"
+                ],
+                "offerType" => $offerTypeIRI,
+                "owner" => $ownerIRI,
+                "dynamicPropertyValues" => [
+                    [
+                        "dynamicProperty" => $dynamicPropertyIRI,
+                        "value" => "2"
+                    ]
+                ],
+                "status" => "unpublished"
+            ],
+        ]);
+
+        $this->assertJsonContains(["hydra:description" => "summary: This value is too short. It should have 40 characters or more."]);
     }
 
     /**
@@ -316,7 +398,48 @@ class OfferTest extends ApiTestCase
             ],
         ]);
 
-        $this->assertJsonContains(["hydra:description" => "description: This value should not be blank."]);
+        $this->assertJsonContains(["hydra:description" => "description: This value is too short. It should have 80 characters or more.\ndescription: This value should not be blank."]);
+    }
+
+    public function testInvalildOfferDescriptionTooShort(): void
+    {
+        $client = TestUtil::createClientWithCredentials();
+
+        $this->createData();
+
+        $cityIRI = $this->findIriBy(City::class, ["name" => "La Neuville-en-Hez"]);
+        $offerTypeIRI = $this->findIriBy(OfferType::class, ["name" => "Cabanes"]);
+        $ownerIRI = $this->findIriBy(User::class, ["email" => "test.user1@example.com"]);
+        $dynamicPropertyIRI = $this->findIriBy(DynamicProperty::class, ["name" => "dp1"]);
+
+        // create offer
+        $client->request('POST', $this->OFFER_URI, [
+            'json' =>
+            [
+                "title" => "Cabane des Champs",
+                "summary" => "La Cabane des champs est idéale pour un séjour à deux. Vous pourrez profiter du calme des lieux et de la nature, entouré des chats, poules et de la famille cochons d'inde du domaine.",
+                "description" => "La Cabane des champs est idéale pour un séjour à deux.",
+                "capacity" => 2,
+                "nbBeds" => 2,
+                "unitPrice" => 89,
+                "address" => [
+                    "city" =>  $cityIRI,
+                    "line1" => "Rue du matin",
+                    "postalCode" => "91137"
+                ],
+                "offerType" => $offerTypeIRI,
+                "owner" => $ownerIRI,
+                "dynamicPropertyValues" => [
+                    [
+                        "dynamicProperty" => $dynamicPropertyIRI,
+                        "value" => "2"
+                    ]
+                ],
+                "status" => "unpublished"
+            ],
+        ]);
+
+        $this->assertJsonContains(["hydra:description" => "description: This value is too short. It should have 80 characters or more."]);
     }
 
 
@@ -486,7 +609,7 @@ class OfferTest extends ApiTestCase
             ],
         ]);
 
-        $this->assertJsonContains(["hydra:description" => "nbBeds: This value should be either positive or zero."]);
+        $this->assertJsonContains(["hydra:description" => "nbBeds: This value should be positive."]);
     }
 
     public function testInvalildOffernbBedsNotSet(): void
@@ -861,6 +984,50 @@ class OfferTest extends ApiTestCase
         ]);
 
         $this->assertJsonContains(["hydra:description" => "Expected IRI or nested document for attribute \"owner\", \"NULL\" given."]);
+    }
+
+    /**
+     * DynamicProperties
+     */
+    public function testInvalildOfferDynamicPropertyValuesEmpty(): void
+    {
+        $client = TestUtil::createClientWithCredentials();
+
+        $this->createData();
+
+        $cityIRI = $this->findIriBy(City::class, ["name" => "La Neuville-en-Hez"]);
+        $offerTypeIRI = $this->findIriBy(OfferType::class, ["name" => "Cabanes"]);
+        $ownerIRI = $this->findIriBy(User::class, ["email" => "test.user1@example.com"]);
+        $dynamicPropertyIRI = $this->findIriBy(DynamicProperty::class, ["name" => "dp1"]);
+
+        // create offer
+        $client->request('POST', $this->OFFER_URI, [
+            'json' =>
+            [
+                "title" => "Cabane des Champs",
+                "summary" => "La Cabane des champs est idéale pour un séjour à deux. Vous pourrez profiter du calme des lieux et de la nature, entouré des chats, poules et de la famille cochons d'inde du domaine.",
+                "description" => "La Cabane des champs est idéale pour un séjour à deux. Vous pourrez profiter du calme des lieux et de la nature, entouré des chats, poules et de la famille cochons d'inde du domaine.",
+                "capacity" => 2,
+                "nbBeds" => 2,
+                "unitPrice" => 89,
+                "address" => [
+                    "city" =>  $cityIRI,
+                    "line1" => "Rue du matin",
+                    "postalCode" => "91137"
+                ],
+                "offerType" => $offerTypeIRI,
+                "owner" => $ownerIRI,
+                "dynamicPropertyValues" => [
+                    [
+                        "dynamicProperty" => null,
+                        "value" => "2"
+                    ]
+                ],
+                "status" => "unpublished"
+            ],
+        ]);
+
+        $this->assertJsonContains(["hydra:description" => "Expected IRI or nested document for attribute \"dynamicProperty\", \"NULL\" given."]);
     }
 
     private function createData()

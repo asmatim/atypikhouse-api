@@ -88,7 +88,21 @@ class UserTest extends KernelTestCase
             ->setPhoneNumber("0034611223344")
             ->setRoles(["USER_ROLE"]);
 
-        $this->assertHasErrors($user, 2, "firstName", ["This value should not be blank.", "This value is too short. It should have 1 character or more."]);
+        $this->assertHasErrors($user, 1, "firstName", ["This value is too short. It should have 3 characters or more."]);
+    }
+
+    public function testInValidUserFirstNameTooShort(): void
+    {
+        $user = (new User())
+            ->setEmail("user@domain.com")
+            ->setPlainPassword("Azerty")
+            ->setFirstName("Al")
+            ->setLastName("Marchand")
+            ->setBirthdate(new DateTime('2022-04-25', new DateTimeZone('UTC')))
+            ->setPhoneNumber("0034611223344")
+            ->setRoles(["USER_ROLE"]);
+
+        $this->assertHasErrors($user, 1, "firstName", ["This value is too short. It should have 3 characters or more."]);
     }
     /**
      * lastName
@@ -131,7 +145,21 @@ class UserTest extends KernelTestCase
             ->setPhoneNumber("0034611223344")
             ->setRoles(["USER_ROLE"]);
 
-        $this->assertHasErrors($user, 2, "lastName", ["This value should not be blank.", "This value is too short. It should have 1 character or more."]);
+        $this->assertHasErrors($user, 1, "lastName", ["This value is too short. It should have 3 characters or more."]);
+    }
+
+    public function testInValidUserLastNameTooShort(): void
+    {
+        $user = (new User())
+            ->setEmail("user@domain.com")
+            ->setPlainPassword("Azerty")
+            ->setFirstName("Alexandre")
+            ->setLastName("Ma")
+            ->setBirthdate(new DateTime('2022-04-25', new DateTimeZone('UTC')))
+            ->setPhoneNumber("0034611223344")
+            ->setRoles(["USER_ROLE"]);
+
+        $this->assertHasErrors($user, 1, "lastName", ["This value is too short. It should have 3 characters or more."]);
     }
 
     /**
@@ -194,9 +222,9 @@ class UserTest extends KernelTestCase
             ->setLastName("Marchand")
             ->setBirthdate(new DateTime('2022-04-25', new DateTimeZone('UTC')))
             ->setPhoneNumber("0034611223344")
-            ->setRoles(["USER_ROLE"]);;
+            ->setRoles(["USER_ROLE"]);
 
-        $this->assertHasErrors($user, 1, "email", ["This value should not be null."]);
+        $this->assertHasErrors($user, 2, "email", ["This value should not be null.", "This value should not be blank."]);
     }
 
     public function testInValidEmailEmpty(): void
