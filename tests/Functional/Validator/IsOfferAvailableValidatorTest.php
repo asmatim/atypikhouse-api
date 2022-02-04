@@ -17,7 +17,6 @@ use App\Factory\UserFactory;
 use App\Tests\TestUtil;
 use DateTime;
 use DateTimeZone;
-use SebastianBergmann\Environment\Console;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
@@ -46,7 +45,6 @@ class IsOfferAvailableValidatorTest extends ApiTestCase
             ],
         ]);
 
-        // User had already a reservation with this offer ==> can comment the offer
         $this->assertJsonContains(["hydra:description" => "L'offre Offre est déjà réservée."]);
         //$this->assertJsonContains(["violations" => [["message" => "L'offre Offre est déjà réservée.", "code" => null]]]);
     }
