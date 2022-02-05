@@ -40,7 +40,7 @@ class OfferAvailabilityFilterTest extends ApiTestCase
 
         // check the results contains the three offers all available
         $this->assertJsonContains([
-            ["title" => "Cabane à La Neuville-en-Hez"], ["title" => "Jolie Cabane à l'Oise"], ["title" => "Jolie Logement atypique à l'Oise"]
+            ["title" => "Jolie Logement atypique à l'Oise"], ["title" => "Jolie Cabane à l'Oise"],  ["title" => "Cabane à La Neuville-en-Hez"]
         ]);
         $this->assertCount(3, $results, "The search results should include exaclty 3 results.");
     }
@@ -63,7 +63,7 @@ class OfferAvailabilityFilterTest extends ApiTestCase
 
         // check the results contains the 2 offers available, the 3rd one is reserved already during the provided dates
         $this->assertJsonContains([
-            ["title" => "Jolie Cabane à l'Oise"], ["title" => "Jolie Logement atypique à l'Oise"]
+            ["title" => "Jolie Logement atypique à l'Oise"], ["title" => "Jolie Cabane à l'Oise"]
         ]);
         $this->assertCount(2, $results, "The search results should include exaclty 2 results.");
     }

@@ -35,7 +35,7 @@ class OfferSearchFilterTest extends ApiTestCase
         $this->assertResponseIsSuccessful();
 
         // check the results contains the two offers with the keyword "Cabane"
-        $this->assertJsonContains([["title" => "Cabane à La Neuville-en-Hez"], ["title" => "Jolie Cabane à l'Oise"]]);
+        $this->assertJsonContains([["title" => "Jolie Cabane à l'Oise"], ["title" => "Cabane à La Neuville-en-Hez"]]);
         $this->assertCount(2, $results, "The search results should include exaclty two results.");
     }
 
