@@ -24,7 +24,8 @@ use App\Validator\OfferDynamicProperty;
 #[ApiResource(
     normalizationContext: ['groups' => ['offer:read']],
     denormalizationContext: ['groups' => ['offer:write']],
-    paginationItemsPerPage: 9
+    paginationItemsPerPage: 9,
+    order:['id' => "DESC"]
 )]
 #[ApiFilter(SearchFilter::class, properties: ["offerType" => "exact", "status" => "exact", "owner.id" => "exact"])]
 #[ApiFilter(OfferSearchFilter::class)]

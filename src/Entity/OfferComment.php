@@ -19,7 +19,8 @@ use App\Enum\OfferCommentStatus;
 #[ApiResource(
     normalizationContext: ['groups' => ['offerComment:read']],
     denormalizationContext: ['groups' => ['offerComment:write']],
-    paginationItemsPerPage: 9
+    paginationItemsPerPage: 9,
+    order:['id' => "DESC"]
 )]
 #[ApiFilter(SearchFilter::class, properties: ["offer" => "exact" ,"client" => "exact","status"=>"exact"])]
 class OfferComment
