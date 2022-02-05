@@ -22,7 +22,8 @@ use App\Validator\IsOfferAvailable;
 #[ApiResource(
     normalizationContext: ['groups' => ['reservation:read']],
     denormalizationContext: ['groups' => ['reservation:write']],
-    paginationItemsPerPage: 9
+    paginationItemsPerPage: 9,
+    order:['id' => "DESC"]
 )]
 #[ApiFilter(SearchFilter::class, properties: ['status' => 'exact', 'offer' => 'exact', 'client' => 'exact', 'offer.owner.id' => 'exact'])]
 #[ApiFilter(DateFilter::class, properties: ['endDate'])]
