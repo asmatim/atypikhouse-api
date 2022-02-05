@@ -23,7 +23,10 @@ class AppFixtures extends Fixture
 
         AboutUsFactory::createOne();
 
-        UserFactory::createMany(20);
+        // Create Owners
+        UserFactory::createMany(20, function () {
+            return ['roles' => ["ROLE_OWNER"]];
+        });
 
         // Create unique Collections/categories
         $collections = ['Cabanes', 'Yourtes', 'Bulles', 'Tentes', 'Dôme', 'Cabanes sur Arbres'];
@@ -35,8 +38,13 @@ class AppFixtures extends Fixture
             return ['owner' => UserFactory::random()]; // each offer set to a random Owner from those already in the database
         });
 
+        // Create Users
+        UserFactory::createMany(50, function () {
+            return ['roles' => ["ROLE_USER"]];
+        });
+
         OfferCommentFactory::createMany(70, function () {
-            return ['client' => UserFactory::random(), 'offer' => OfferFactory::random(), 'status'=>'approved'];
+            return ['client' => UserFactory::random(), 'offer' => OfferFactory::random(), 'status' => 'approved'];
         });
     }
 
